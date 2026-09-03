@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/capture_endless_stage.gd" id="1_omhhw"]
+
+[node name="CaptureEndlessStage" type="Node" unique_id=1404908883]
+script = ExtResource("1_omhhw")

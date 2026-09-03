@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/combat_sandbox.gd" id="1_cdunu"]
+
+[node name="EndlessSandbox" type="Node2D" unique_id=1609141645]
+script = ExtResource("1_cdunu")
+session_mode = "endless"
+enable_diagnostic_targets = false

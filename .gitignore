@@ -1,0 +1,13 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.fennara/
+/native/build*/
+/addons/singular_tower/bin/*
+!/addons/singular_tower/bin/.gitkeep
+/artifacts/*
+!/artifacts/.gitkeep
+!/artifacts/performance-baseline.md
+/config/balance/*.tmp
+/config/balance/*.bak
+/addons/fennara/bin/~*

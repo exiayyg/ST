@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LevelCatalog" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/level_definition.gd" id="1_ldbfg"]
+[ext_resource type="Resource" path="res://resources/levels/diode_tutorial.tres" id="2_x05gb"]
+[ext_resource type="Script" path="res://scripts/campaign/level_catalog.gd" id="3_2r8d4"]
+
+[resource]
+script = ExtResource("3_2r8d4")
+levels = Array[ExtResource("1_ldbfg")]([ExtResource("2_x05gb")])

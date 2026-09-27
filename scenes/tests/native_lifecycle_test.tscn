@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/test_native_lifecycle.gd" id="1_wa4ux"]
+
+[node name="NativeLifecycleTest" type="Node" unique_id=972131238]
+script = ExtResource("1_wa4ux")

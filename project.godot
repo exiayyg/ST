@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Singular Tower / 一炮千径"
-run/main_scene="res://scenes/combat/endless_sandbox.tscn"
+run/main_scene="res://scenes/frontend/main_menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 _fennara_game_capture="*res://addons/fennara/runtime/game_capture_helper.gd"
 _balance_service="*res://scripts/config/balance_service.gd"
+_campaign_service="*res://scripts/campaign/campaign_service.gd"
 
 [display]
 

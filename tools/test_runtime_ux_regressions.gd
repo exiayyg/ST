@@ -1,12 +1,13 @@
-extends SceneTree
+extends Node
 
 const ENDLESS_SCENE := preload("res://scenes/combat/endless_sandbox.tscn")
 
 var _failed := false
 
 
-func _init() -> void:
-	_run.call_deferred()
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	_run()
 
 
 func _check(condition: bool, message: String) -> void:
@@ -18,29 +19,29 @@ func _check(condition: bool, message: String) -> void:
 
 func _run() -> void:
 	var combat := ENDLESS_SCENE.instantiate()
-	root.add_child(combat)
-	await process_frame
-	await process_frame
-	combat.set("_auto_fire", false)
-	combat.set("_radial_hold_seconds", 0.0)
-	var viewport_size := root.get_visible_rect().size
+	add_child(combat)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	combat.runtime.set("auto_fire", false)
+	var viewport_size := get_tree().root.get_visible_rect().size
 	var press_position := viewport_size * 0.5 + Vector2(140.0, 120.0)
 	var press_event := InputEventMouseButton.new()
 	press_event.button_index = MOUSE_BUTTON_LEFT
 	press_event.position = press_position
 	press_event.global_position = press_position
 	press_event.pressed = true
-	root.push_input(press_event, true)
-	await process_frame
+	get_tree().root.push_input(press_event, true)
+	await get_tree().create_timer(combat.runtime.profile.runtime_config().construction_ux.radial_hold_seconds + 0.1).timeout
+	await get_tree().process_frame
 	var construction_hud := combat.get("_hud") as PrototypeHud
-	_check(bool(combat.get("_radial_open")),
+	_check(bool(combat.runtime.input.snapshot().radial_open),
 		"a long press on lit empty ground must open the radial state in the endless scene")
 	_check(construction_hud != null and construction_hud.visible and construction_hud.radial_open,
 		"the endless scene must visibly render the construction radial wheel")
 	var release_event := press_event.duplicate() as InputEventMouseButton
 	release_event.pressed = false
-	root.push_input(release_event, true)
-	await process_frame
+	get_tree().root.push_input(release_event, true)
+	await get_tree().process_frame
 	combat.set_process(false)
 	var combat_hud := combat.get("_combat_hud") as CombatHud
 	combat_hud.warnings = {"east": {"types": {"dev_melee": 2}, "pressure": 2.0}}
@@ -53,9 +54,9 @@ func _run() -> void:
 	warning_press.position = warning_rect.get_center()
 	warning_press.global_position = warning_press.position
 	warning_press.pressed = true
-	root.push_input(warning_press, true)
-	await process_frame
-	_check(combat_hud.selected_direction == "east" and not bool(combat.get("_left_press_active")),
+	get_tree().root.push_input(warning_press, true)
+	await get_tree().process_frame
+	_check(combat_hud.selected_direction == "east" and not combat.runtime.input.has_cancelable_interaction(),
 		"narrowing the combat HUD hit area must preserve warning clicks without starting construction")
 
 	var configured_mode := int(ProjectSettings.get_setting("display/window/size/mode", -1))
@@ -70,4 +71,4 @@ func _run() -> void:
 
 	if not _failed:
 		print("Runtime UX regressions passed: radial input, warning hit regions and native fullscreen defaults")
-	quit(1 if _failed else 0)
+	get_tree().quit(1 if _failed else 0)

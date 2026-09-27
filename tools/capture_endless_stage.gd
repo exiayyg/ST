@@ -20,10 +20,10 @@ func _ready() -> void:
 func _capture() -> void:
 	var combat := ENDLESS_SCENE.instantiate()
 	add_child(combat)
-	combat.set("_auto_fire", false)
+	combat.runtime.set("auto_fire", false)
 	for _frame in 5:
 		await get_tree().process_frame
-	combat.set("_radial_hold_seconds", 0.0)
+	combat.runtime.input.set("_radial_hold_seconds", 0.0)
 	var press_position := get_viewport().get_visible_rect().size * 0.5 + Vector2(140.0, 120.0)
 	var press_event := InputEventMouseButton.new()
 	press_event.button_index = MOUSE_BUTTON_LEFT
@@ -48,10 +48,10 @@ func _capture() -> void:
 	await get_tree().process_frame
 	combat.set_process(false)
 
-	var session: EndlessRunDirector = combat.get("_session")
-	var manager: EnemyManager = combat.get("_enemy_manager")
-	var tower: TowerController = combat.get("_tower")
-	var simulation: SimulationController = combat.get("_simulation")
+	var session: EndlessRunDirector = combat.runtime.session
+	var manager: EnemyManager = combat.runtime.enemies
+	var tower: TowerController = combat.runtime.tower
+	var simulation: SimulationController = combat.runtime.simulation
 	var hud: CombatHud = combat.get("_combat_hud")
 	if session == null or manager == null or tower == null or hud == null:
 		push_error("Endless capture fixture could not resolve the live combat modules")
@@ -141,9 +141,9 @@ func _capture() -> void:
 
 
 func _refresh_and_save(combat: Node, session: EndlessRunDirector, path: String) -> void:
-	var manager: EnemyManager = combat.get("_enemy_manager")
-	var tower: TowerController = combat.get("_tower")
-	var simulation: SimulationController = combat.get("_simulation")
+	var manager: EnemyManager = combat.runtime.enemies
+	var tower: TowerController = combat.runtime.tower
+	var simulation: SimulationController = combat.runtime.simulation
 	var world_view: NetworkWorldView = combat.get("_world_view")
 	var hud: CombatHud = combat.get("_combat_hud")
 	combat.call("_refresh_views")

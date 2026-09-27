@@ -3,6 +3,8 @@ extends RefCounted
 
 var native: MomentumSimulation
 var profile: BalanceProfile
+const RuntimeBalanceType := preload("res://scripts/config/runtime_balance.gd")
+var _tower_config: RuntimeBalanceType.Tower
 
 
 func _init(balance_profile: BalanceProfile = null) -> void:
@@ -13,7 +15,10 @@ func initialize() -> bool:
 	if profile == null:
 		push_error("SimulationController 需要 BalanceProfile")
 		return false
+	if not profile.validate().is_empty():
+		return false
 	native = MomentumSimulation.new()
+	_tower_config = profile.runtime_config().tower
 	var tower := profile.section("tower")
 	var simulation := profile.section("simulation")
 	var entropy := profile.section("entropy")
@@ -57,12 +62,12 @@ func initialize() -> bool:
 	})
 
 
-func emit_tower_projectile(position: Vector2, lane_offset: float) -> void:
-	var speed := float(profile.value("tower/projectile_speed", 240.0))
-	var mass := float(profile.value("tower/projectile_mass", 0.05))
-	var muzzle_offset := float(profile.value("tower/muzzle_offset", 34.0))
+func emit_tower_projectile(position: Vector2) -> void:
+	var speed := _tower_config.projectile_speed
+	var mass := _tower_config.projectile_mass
+	var muzzle_offset := _tower_config.muzzle_offset
 	native.emit_projectiles([{
-		"position": position + Vector2(muzzle_offset, lane_offset),
+		"position": position + Vector2(muzzle_offset, 0.0),
 		"velocity": Vector2(speed, 0.0),
 		"mass": mass,
 		"tower_source": true,

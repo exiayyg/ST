@@ -22,6 +22,8 @@ extends Resource
 @export var wave_speed := 360.0
 @export var reconstruction_mass := 0.05
 @export var reconstruction_speed := 240.0
+
+
 @export var entropy_sensitivity := 1.0
 
 

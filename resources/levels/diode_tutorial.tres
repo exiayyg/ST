@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="LevelDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/campaign/level_definition.gd" id="1_4syac"]
+
+[resource]
+script = ExtResource("1_4syac")
+id = &"diode_tutorial"
+display_name = "第一关：改写路径"
+description = "将唯一初始弹道接入二极管，并把动量网络重定向到北侧。"
+scene_path = "res://scenes/levels/diode_tutorial.tscn"
+balance_key = "levels/diode_tutorial"
+sort_order = 10

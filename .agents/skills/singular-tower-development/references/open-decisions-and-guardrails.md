@@ -20,6 +20,7 @@ If technical safety requires a cap or cleanup, label it as an exceptional guard,
 ## Not frozen: parameterize or isolate
 
 - Tower fire rate, initial projectile mass, initial speed, and initial momentum.
+- Tower muzzle offset along the frozen firing direction. Lateral lane count, lateral spacing, initial firing spread, and free-flight entropy drift are not balance parameters because the unique deterministic initial path is frozen.
 - Device activation requirements, HP, lighting radii, and physical multipliers.
 - Entropy growth function, onset threshold, saturation point, monotone response curve, interaction multipliers, perturbation distributions, and maximum deviations. The existence of a zero-uncertainty region before the threshold is frozen; its numeric extent is not.
 - Enemy entropy transfer ratio, stacking, duration/decay, thresholds, and per-enemy response functions.
@@ -30,7 +31,7 @@ If technical safety requires a cap or cleanup, label it as an exceptional guard,
 - Wave-point count, fan angle, propagation speed, receiver collision radius, and other numeric geometry.
 - Map dimensions, camera rules, and whether a minimap exists.
 - Exact radial-menu hold threshold and animation.
-- Save system, permanent progression, and other metagame content not yet discussed.
+- Cloud synchronization, expanded run history, permanent power progression, and other metagame content beyond the agreed local level completion/best-utilization record.
 
 Represent these as typed data, curves, strategy objects/interfaces, or explicitly named TODO seams. A provisional test value may live in configuration, but must not be described as final design.
 

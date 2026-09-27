@@ -32,6 +32,10 @@ Do not add meaningless visibility percentages, a global device-energy meter, con
 - Long-press left mouse on an allowed lit map position to open a radial device-selection wheel near that spatial origin.
 - Edge and corner placement must not clip the wheel. Preserve spatial pointing while adapting by center offset, partial fan layout, or another suitable responsive treatment.
 - Exact hold thresholds and animation timing are not frozen.
+- Every device commits on radial release at the original press location. A diode is created as one atomic pair with a configured initial offset; validate both anchors against the current map and lighting. Show both pending outlines, not a second click-to-place phase.
+- Normal gameplay is mouse-complete. A short left click selects; on an accumulator it also requests one release. Device movement begins in the mouse-motion event that exceeds a configurable screen-space distance tolerance, preserving the initial grab offset without a hold delay. The separate short-click time limit guards accumulator release only. Once dragging begins, returning to the starting point or cancelling never produces a release click. Show a closed grab cursor during movement; progress rings belong to radial opening and dismantling, not device dragging.
+- Right dragging an anchor previews its absolute cursor-facing angle without changing the real device. Right release commits once; left click, modal entry, focus loss, deletion, or scene termination cancels. The plate uses its normal as the cursor-facing axis. Rotation is continuous rather than fixed-angle keyboard stepping.
+- Provide contextual hold-to-dismantle plus mouse pause and fire controls. Optional keyboard shortcuts invoke the same actions. Input is owned per world; one mutually exclusive gesture state controls capture and cancellation, not a global gameplay singleton.
 - Movement and rotation remain available during combat without arbitrary use limits. The interaction should enable meaningful replanning without turning the game into constant high-APM micromanagement.
 
 ## Directional warnings
@@ -48,6 +52,10 @@ Teach enemy and device behavior by staging battles where the player sees what br
 Levels may emphasize one device, enemy, or map rule, but all device types remain generally selectable from the beginning of a run unless canon is explicitly changed. Do not infer a permanent purchase/unlock tree.
 
 Enemy content must possess behavior that interacts with the network. New entropy responses should perturb behavior outputs specific to that enemy while preserving the “uncertainty only” rule.
+
+Campaign levels unlock in authored prerequisite order, but this must never be presented as a device unlock tree. The level-select card shows completion and best momentum utilization; it does not add stars, currencies, upgrade rewards, or unavailable placeholder levels. Player-facing mode selection exposes campaign and endless play, while single-wave and construction regression entries stay development-only.
+
+During a combat level, Esc first closes an active tuning panel or cancels a transient construction action. With nothing transient to cancel it opens a pause surface that freezes the whole world and offers resume, retry, and return-to-origin navigation. Leaving a paused scene must always restore the SceneTree pause state.
 
 ## Boss coverage
 

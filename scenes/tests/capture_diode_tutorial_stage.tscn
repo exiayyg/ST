@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/capture_diode_tutorial_stage.gd" id="1_xhicx"]
+
+[node name="CaptureDiodeTutorialStage" type="Node" unique_id=1151037610]
+script = ExtResource("1_xhicx")

@@ -18,6 +18,18 @@ func evaluate(_stats: Dictionary) -> void:
 	pass
 
 
+func ingest_event(_event: Dictionary) -> void:
+	pass
+
+
+func needs_world_observation() -> bool:
+	return false
+
+
+func observe_world(_delta: float, _auto_fire: bool, _visible_enemies: int) -> void:
+	pass
+
+
 func hud_snapshot(_live_stats: Dictionary) -> Dictionary:
 	return {}
 
@@ -28,3 +40,7 @@ func should_simulate_enemies() -> bool:
 
 func is_terminal() -> bool:
 	return false
+
+
+func completion_snapshot() -> Dictionary:
+	return {}

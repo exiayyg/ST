@@ -6,11 +6,27 @@ const BalanceRepositoryType := preload("res://scripts/config/balance_repository.
 const EntropyCurveEditorType := preload("res://scripts/config/entropy_curve_editor.gd")
 const BalanceFieldCatalogType := preload("res://scripts/config/balance_field_catalog.gd")
 
-var working: BalanceProfile
-var baseline: BalanceProfile
-var project_defaults: BalanceProfile
+const EditSession := preload("res://scripts/config/balance_edit_session.gd")
+const EditAdapter := preload("res://scripts/config/balance_edit_adapter.gd")
+var edit_session: EditSession
+var working: BalanceProfile:
+	get: return edit_session.working
+var baseline: BalanceProfile:
+	get: return edit_session.baseline
+var saved_profile: BalanceProfile:
+	get: return edit_session.saved
 var balance_service
 var runtime_mode := false
+
+func focus_search() -> void:
+	_search.grab_focus()
+
+func show_apply_error(errors: Array[String]) -> void:
+	_status_label.text = "应用失败：%s" % ", ".join(errors)
+	if runtime_mode and balance_service != null:
+		edit_session.baseline = balance_service.active_profile().duplicate_profile()
+		_sync_numeric_views()
+
 var _content: VBoxContainer
 var _error_label: Label
 var _error_list: ItemList
@@ -21,14 +37,29 @@ var _preview_label: Label
 var _path_controls: Dictionary = {}
 var _group_controls: Array[Dictionary] = []
 var _scroll: ScrollContainer
+var _numeric_bindings: Array[Dictionary] = []
+var _common_grid: GridContainer
+var _source_preview: Label
+var _state_label: Label
+var _collapse_state: Dictionary = {}
+const SECTION_ORDER := ["tower", "devices", "enemies", "levels", "waves", "entropy", "construction_ux", "map_camera", "visuals", "presentation", "audio", "frontend", "playtest", "fog", "simulation", "diagnostics", "schema_version"]
+const COMMON_PATHS := ["tower/projectile_speed", "tower/fire_interval", "tower/projectile_mass", "tower/max_hp", "tower/light_radius", "entropy/start_entropy", "entropy/full_effect_entropy"]
 
 
 func setup(profile: BalanceProfile, service = null, is_runtime := false) -> void:
-	working = profile.duplicate_profile()
-	baseline = profile.duplicate_profile()
-	project_defaults = profile.duplicate_profile()
+	theme = preload("res://scripts/presentation/energy_theme.gd").build(profile)
+	edit_session = EditSession.new()
+	var adapter: EditAdapter
+	if is_runtime:
+		adapter = EditAdapter.Runtime.new()
+	else:
+		adapter = EditAdapter.Editor.new()
+	adapter.target = service
+	edit_session.initialize(profile, adapter, is_runtime)
 	balance_service = service
 	runtime_mode = is_runtime
+	if not resized.is_connected(_layout_common):
+		resized.connect(_layout_common)
 	_build_ui()
 
 
@@ -37,25 +68,33 @@ func _build_ui() -> void:
 		child.queue_free()
 	_path_controls.clear()
 	_group_controls.clear()
-	custom_minimum_size = Vector2(720.0, 540.0)
+	_numeric_bindings.clear()
+	custom_minimum_size = Vector2(0.0, float(working.value("frontend/tuning_min_height")))
+	var panel_style := StyleBoxFlat.new()
+	panel_style.bg_color = Color(String(working.value("visuals/hud_background_color")))
+	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+		panel_style.set_content_margin(side, float(working.value("frontend/tuning_common_gap")))
+	add_theme_stylebox_override("panel", panel_style)
 	var root := VBoxContainer.new()
 	add_child(root)
 	var title := Label.new()
 	title.text = "一炮千径 · 统一数值面板%s" % ("（运行时工作副本）" if runtime_mode else "（项目配置）")
-	title.add_theme_font_size_override("font_size", 22)
+	title.add_theme_font_size_override("font_size", int(working.value("frontend/tuning_title_font_size")))
 	root.add_child(title)
-	var actions := HBoxContainer.new()
+	var actions := HFlowContainer.new()
 	root.add_child(actions)
 	_add_button(actions, "应用并重置", _apply_and_reset)
 	_add_button(actions, "保存 JSON", _save)
 	_add_button(actions, "重新加载", _reload)
-	_add_button(actions, "恢复默认", _restore_defaults)
 	_add_button(actions, "撤销未应用", _restore_baseline)
 	_search = LineEdit.new()
 	_search.placeholder_text = "搜索路径或字段名"
 	_search.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_search.text_changed.connect(_filter_rows)
 	actions.add_child(_search)
+	_state_label = Label.new()
+	root.add_child(_state_label)
+	_build_common(root)
 	var preview := HBoxContainer.new()
 	root.add_child(preview)
 	var preview_title := Label.new()
@@ -68,11 +107,13 @@ func _build_ui() -> void:
 	_preview_entropy.value_changed.connect(func(_value): _refresh_preview())
 	preview.add_child(_preview_entropy)
 	_preview_label = Label.new()
+	_preview_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_preview_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview.add_child(_preview_label)
 	_error_label = Label.new()
 	root.add_child(_error_label)
 	_error_list = ItemList.new()
-	_error_list.custom_minimum_size.y = 70.0
+	_error_list.custom_minimum_size.y = float(working.value("frontend/tuning_error_height"))
 	_error_list.item_clicked.connect(_jump_to_error)
 	root.add_child(_error_list)
 	_scroll = ScrollContainer.new()
@@ -81,7 +122,7 @@ func _build_ui() -> void:
 	_content = VBoxContainer.new()
 	_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_scroll.add_child(_content)
-	for section_name in working.data.keys():
+	for section_name in SECTION_ORDER:
 		if String(section_name) == "schema_version":
 			_add_value_row(_content, "schema_version", working.data[section_name])
 			continue
@@ -90,6 +131,7 @@ func _build_ui() -> void:
 	root.add_child(_status_label)
 	_refresh_validation()
 	_refresh_preview()
+	_sync_numeric_views()
 
 
 func _add_group(parent: VBoxContainer, title: String, value, path: String, depth: int) -> void:
@@ -101,7 +143,13 @@ func _add_group(parent: VBoxContainer, title: String, value, path: String, depth
 	body.set_meta("balance_path", path.to_lower())
 	parent.add_child(body)
 	_group_controls.append({"button": button, "body": body, "path": path.to_lower()})
-	button.pressed.connect(func(): body.visible = not body.visible)
+	if not _collapse_state.has(path):
+		_collapse_state[path] = path in ["simulation", "diagnostics", "fog"]
+	body.visible = not bool(_collapse_state[path])
+	button.pressed.connect(func():
+		_collapse_state[path] = not bool(_collapse_state[path])
+		body.visible = not bool(_collapse_state[path])
+	)
 	if value is Dictionary:
 		var skipped: Dictionary = {}
 		for key in value.keys():
@@ -115,7 +163,7 @@ func _add_group(parent: VBoxContainer, title: String, value, path: String, depth
 				skipped[pair.y_key] = true
 				continue
 			if child is Dictionary:
-				_add_group(body, String(key), child, child_path, depth + 1)
+				_add_group(body, String(child.get("display_name", key)), child, child_path, depth + 1)
 			elif child is Array:
 				_add_array(body, String(key), child, child_path, depth + 1)
 			else:
@@ -137,7 +185,7 @@ func _add_array(parent: VBoxContainer, title: String, values: Array, path: Strin
 		var editor := EntropyCurveEditorType.new() as EntropyCurveEditor
 		editor.set_points(values)
 		editor.curve_changed.connect(func(points: Array):
-			working.set_value(path, points)
+			edit_session.edit(path, points)
 			var original = baseline.value(path, [])
 			label.modulate = Color("ffcf5c") if original != points else Color.WHITE
 			label.text = "%s%s · 双击添加点，拖动中间点，右键删除" % [descriptor.get("label", title), "（已修改）" if original != points else ""]
@@ -161,7 +209,7 @@ func _add_value_row(parent: VBoxContainer, path: String, current) -> void:
 	row.set_meta("balance_path", _search_text(path, descriptor))
 	parent.add_child(row)
 	var label := Label.new()
-	label.custom_minimum_size.x = 330.0
+	label.custom_minimum_size.x = float(working.value("frontend/tuning_field_label_width"))
 	label.text = "%s%s  [%s]" % [descriptor.get("label", path.get_file()), _unit_suffix(descriptor), str(baseline.value(path, current))]
 	label.tooltip_text = "%s\n%s" % [path, descriptor.get("description", "")]
 	row.add_child(label)
@@ -175,11 +223,14 @@ func _add_value_row(parent: VBoxContainer, path: String, current) -> void:
 		spin.min_value = float(descriptor.get("minimum", -1000000000.0))
 		spin.max_value = float(descriptor.get("maximum", 1000000000.0))
 		spin.step = float(descriptor.get("step", 1.0 if bool(descriptor.get("integer", false)) else 0.01))
+		if path == "tower/fire_interval":
+			spin.step = 0.0 # Preserve the exact reciprocal of fractional shots per second.
 		spin.value = float(current)
 		spin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		spin.value_changed.connect(func(value: float):
 			_set_working_value(path, int(round(value)) if bool(descriptor.get("integer", false)) else value, label)
 		)
+		_numeric_bindings.append({"path": path, "spin": spin, "label": label, "reciprocal": false})
 		row.add_child(spin)
 		if String(descriptor.get("editor", "")) == "slider":
 			var slider := HSlider.new()
@@ -190,6 +241,7 @@ func _add_value_row(parent: VBoxContainer, path: String, current) -> void:
 			slider.custom_minimum_size.x = 150.0
 			slider.value_changed.connect(func(value: float): spin.value = value)
 			spin.value_changed.connect(func(value: float): slider.value = value)
+			_numeric_bindings.back()["slider"] = slider
 			row.add_child(slider)
 	elif String(descriptor.get("editor", "")) == "color":
 		var color := ColorPickerButton.new()
@@ -215,7 +267,7 @@ func _add_value_row(parent: VBoxContainer, path: String, current) -> void:
 
 
 func _set_working_value(path: String, value, label: Label) -> void:
-	working.set_value(path, value)
+	edit_session.edit(path, value)
 	var original = baseline.value(path, value)
 	label.modulate = Color("ffcf5c") if original != value else Color.WHITE
 	var descriptor := BalanceFieldCatalogType.descriptor(path, value)
@@ -226,7 +278,8 @@ func _set_working_value(path: String, value, label: Label) -> void:
 
 
 func _refresh_validation() -> void:
-	var errors := working.validate()
+	_sync_numeric_views()
+	var errors := edit_session.errors()
 	_error_label.text = "配置有效，修改将在统一重置后生效。" if errors.is_empty() else "配置错误（点击可跳转）："
 	_error_label.modulate = Color("5ee6a8") if errors.is_empty() else Color("ff6b7a")
 	_error_list.clear()
@@ -259,43 +312,28 @@ func _refresh_preview() -> void:
 
 
 func _apply_and_reset() -> void:
-	var errors := working.validate()
-	if not errors.is_empty():
-		_status_label.text = "应用失败：请先修正配置错误"
-		return
-	if balance_service != null and balance_service.has_method("apply_and_reset"):
-		errors = balance_service.apply_and_reset(working)
-		_status_label.text = "正在按工作副本重置实验场……" if errors.is_empty() else "应用失败：%s" % ", ".join(errors)
-	else:
-		_status_label.text = "编辑器工作副本有效；保存 JSON 后运行项目即可应用。"
+	var failures := edit_session.apply()
+	_sync_numeric_views()
+	_status_label.text = "正在按工作副本重置……" if failures.is_empty() else "应用失败：%s" % ", ".join(failures)
 
 
 func _save() -> void:
-	var errors: Array[String] = balance_service.save(working) if balance_service != null and balance_service.has_method("save") else BalanceRepositoryType.save_profile(working)
-	if errors.is_empty():
-		baseline = working.duplicate_profile()
-		_status_label.text = "balance.json 已事务保存。"
-	else:
-		_status_label.text = "保存失败：%s" % ", ".join(errors)
+	var failures := edit_session.save()
+	if failures.is_empty() and not runtime_mode:
+		_build_ui()
+	_sync_numeric_views()
+	_status_label.text = "balance.json 已事务保存。" if failures.is_empty() else "保存失败：%s" % ", ".join(failures)
 
 
 func _reload() -> void:
-	var loaded := BalanceRepositoryType.load_profile()
-	if loaded == null:
+	if edit_session.reload():
+		_build_ui()
+	else:
 		_status_label.text = "重新加载失败，当前工作副本未改变。"
-		return
-	working = loaded.duplicate_profile()
-	baseline = loaded.duplicate_profile()
-	_build_ui()
 
 
 func _restore_baseline() -> void:
-	working = baseline.duplicate_profile()
-	_build_ui()
-
-
-func _restore_defaults() -> void:
-	working = project_defaults.duplicate_profile()
+	edit_session.undo()
 	_build_ui()
 
 
@@ -315,7 +353,7 @@ func _filter_rows(text: String) -> void:
 					visible = true
 					break
 		(group.get("button") as Control).visible = visible
-		(group.get("body") as Control).visible = visible
+		(group.get("body") as Control).visible = visible and (not needle.is_empty() or not bool(_collapse_state.get(group_path, false)))
 
 
 func _add_button(parent: Container, text: String, callback: Callable) -> void:
@@ -331,7 +369,7 @@ func _add_vector2_row(parent: VBoxContainer, x_path: String, y_path: String, cur
 	row.set_meta("balance_path", _search_text(x_path, descriptor) + " " + y_path.to_lower())
 	parent.add_child(row)
 	var label := Label.new()
-	label.custom_minimum_size.x = 330.0
+	label.custom_minimum_size.x = float(working.value("frontend/tuning_field_label_width"))
 	label.text = "%s [(%s, %s)]" % ["二维位置", str(current.x), str(current.y)]
 	label.tooltip_text = "%s + %s" % [x_path, y_path]
 	row.add_child(label)
@@ -365,6 +403,10 @@ func _jump_to_error(index: int, _position: Vector2, _button: int) -> void:
 	var path := String(_error_list.get_item_metadata(index))
 	var control := _path_controls.get(path) as Control
 	if control != null:
+		for group in _group_controls:
+			if path.begins_with(String(group.path) + "/"):
+				(group.button as Control).show()
+				(group.body as Control).show()
 		control.visible = true
 		_scroll.ensure_control_visible(control)
 
@@ -392,3 +434,83 @@ func _is_curve(values: Array) -> bool:
 		if item is not Dictionary or not item.has("x") or not item.has("y") or item.size() != 2:
 			return false
 	return true
+
+
+func _build_common(parent: VBoxContainer) -> void:
+	var heading := Button.new()
+	heading.text = "常用参数"
+	heading.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	parent.add_child(heading)
+	var common_body := VBoxContainer.new()
+	parent.add_child(common_body)
+	common_body.visible = not bool(_collapse_state.get("__common", false))
+	heading.pressed.connect(func():
+		common_body.visible = not common_body.visible
+		_collapse_state["__common"] = not common_body.visible
+	)
+	_common_grid = GridContainer.new()
+	_common_grid.add_theme_constant_override("h_separation", int(working.value("frontend/tuning_common_gap")))
+	common_body.add_child(_common_grid)
+	for path in COMMON_PATHS:
+		var row := HBoxContainer.new()
+		row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_common_grid.add_child(row)
+		var label := Label.new()
+		label.custom_minimum_size.x = float(working.value("frontend/tuning_label_width"))
+		row.add_child(label)
+		var spin := SpinBox.new()
+		var descriptor := BalanceFieldCatalogType.descriptor(path, working.value(path))
+		var reciprocal: bool = path == "tower/fire_interval"
+		spin.min_value = 1.0 / float(descriptor.maximum) if reciprocal else float(descriptor.minimum)
+		spin.max_value = 1.0 / float(descriptor.minimum) if reciprocal and float(descriptor.minimum) > 0.0 else float(descriptor.maximum)
+		spin.allow_greater = reciprocal and float(descriptor.minimum) == 0.0
+		spin.step = 0.0 if reciprocal else float(descriptor.step)
+		spin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		spin.value_changed.connect(func(value: float):
+			if reciprocal:
+				if not is_finite(value) or value <= 0.0:
+					_sync_numeric_views()
+					return
+				value = 1.0 / value
+			_set_working_value(path, value, label)
+		)
+		row.add_child(spin)
+		_numeric_bindings.append({"path": path, "spin": spin, "label": label, "reciprocal": reciprocal})
+	_source_preview = Label.new()
+	_source_preview.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	common_body.add_child(_source_preview)
+	_layout_common()
+
+
+func _layout_common() -> void:
+	if is_instance_valid(_common_grid):
+		_common_grid.columns = 2 if size.x >= float(working.value("frontend/tuning_columns_breakpoint")) else 1
+
+
+func _sync_numeric_views() -> void:
+	for binding in _numeric_bindings:
+		var value := float(working.value(binding.path))
+		var original := float(baseline.value(binding.path))
+		var displayed := 1.0 / value if binding.reciprocal and value > 0.0 else value
+		var prior := 1.0 / original if binding.reciprocal and original > 0.0 else original
+		(binding.spin as SpinBox).set_value_no_signal(displayed)
+		if binding.has("slider"):
+			(binding.slider as HSlider).set_value_no_signal(displayed)
+		var descriptor := BalanceFieldCatalogType.descriptor(binding.path, value)
+		var title := "每秒发射数（发/s）" if binding.reciprocal else String(descriptor.label) + _unit_suffix(descriptor)
+		if binding.path == "tower/max_hp":
+			title = "塔 HP（HP）"
+		elif binding.path == "tower/light_radius":
+			title = "塔照明半径（px）"
+		(binding.label as Label).text = "%s [%s → %s]" % [title, prior, displayed] if value != original else title
+		(binding.label as Label).modulate = Color("ffcf5c") if value != original else Color.WHITE
+	if is_instance_valid(_source_preview):
+		var derived := edit_session.snapshot()
+		var interval := float(derived.interval)
+		var momentum := float(derived.momentum)
+		_source_preview.text = "发射间隔 %s s · 单发动量 %s · 每秒源动量 %s" % [interval, momentum, momentum / interval if interval > 0.0 else 0.0]
+	if is_instance_valid(_state_label):
+		_state_label.text = "%s · %s" % [
+			"当前生效" if runtime_mode and working.data == baseline.data else "未应用修改" if runtime_mode else "编辑器工作副本",
+			"已保存" if working.data == saved_profile.data else "有未保存修改"
+		]

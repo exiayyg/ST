@@ -11,9 +11,10 @@ var hp := 1000.0
 
 
 func _init(profile: BalanceProfile) -> void:
-	position = Vector2(float(profile.value("tower/position_x", 0.0)), float(profile.value("tower/position_y", 0.0)))
-	radius = float(profile.value("tower/collision_radius", 42.0))
-	max_hp = float(profile.value("tower/max_hp", 1000.0))
+	var config := profile.runtime_config().tower
+	position = Vector2(config.position_x, config.position_y)
+	radius = config.collision_radius
+	max_hp = config.max_hp
 	hp = max_hp
 
 

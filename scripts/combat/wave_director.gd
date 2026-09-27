@@ -50,6 +50,21 @@ func start(configured_wave_id: StringName) -> bool:
 func start_spec(configured_wave_id: StringName, configured: Dictionary) -> bool:
 	if configured.is_empty() or configured.get("groups", null) is not Array:
 		return false
+	# Preflight every region before replacing this wave or resetting its ledger.
+	var compiled_regions: Array[SpawnRegion] = []
+	for group in configured.groups:
+		if group is not Dictionary:
+			return false
+		var region: SpawnRegion
+		if group.has("spawn_region"):
+			if group.spawn_region is not Dictionary:
+				return false
+			region = SpawnRegion.from_spec(group.spawn_region)
+		else:
+			region = SpawnRegion.new()
+		if not enemy_manager.accepts_spawn_region(StringName(group.get("direction", "")), region):
+			return false
+		compiled_regions.append(region)
 	wave_id = configured_wave_id
 	wave = configured.duplicate(true)
 	duration = float(wave.get("duration", 90.0))
@@ -67,6 +82,7 @@ func start_spec(configured_wave_id: StringName, configured: Dictionary) -> bool:
 		if group_value is not Dictionary:
 			return false
 		var group: Dictionary = (group_value as Dictionary).duplicate(true)
+		group["compiled_spawn_region"] = compiled_regions[groups.size()]
 		group["spawned"] = 0
 		group["next_time"] = float(group.get("start_time", 0.0))
 		groups.append(group)
@@ -173,7 +189,8 @@ func _spawn_due_groups() -> void:
 			var spawned_id := enemy_manager.spawn(
 				StringName(group.get("enemy", "")),
 				StringName(group.get("direction", "east")),
-				group.get("enemy_modifiers", wave.get("enemy_modifiers", {}))
+				group.get("enemy_modifiers", wave.get("enemy_modifiers", {})),
+				group.compiled_spawn_region
 			)
 			if spawned_id <= 0:
 				break

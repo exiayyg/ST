@@ -1,0 +1,2105 @@
+{
+  "description": "Conservative baseline allowlist, not proof of semantic completeness. New or changed numeric source lines fail. Legacy presentation debt is explicit; do not extend this list to bypass exposing a new tunable.",
+  "entries": [
+    {
+      "path": "scripts/runtime/world_screen.gd",
+      "code": "Input.set_custom_mouse_cursor(grab_cursor, Input.CURSOR_DRAG, grab_cursor.get_size() * 0.5)",
+      "reason": "Cursor hotspot at the geometric center of the vector asset; one-half is a centering identity."
+    },
+    {
+      "path": "scripts/playtest/playtest_overlay.gd",
+      "code": "_actions.anchor_top = 0.5",
+      "reason": "Normalized midpoint anchor, not a gameplay or UX tuning source."
+    },
+    {
+      "path": "scripts/playtest/playtest_overlay.gd",
+      "code": "_actions.anchor_bottom = 0.5",
+      "reason": "Normalized midpoint anchor, not a gameplay or UX tuning source."
+    },
+    {
+      "path": "scripts/playtest/playtest_overlay.gd",
+      "code": "_actions.offset_top = profile.runtime_config().visuals.settlement_panel_height * 0.5 + profile.runtime_config().frontend.item_gap",
+      "reason": "Half the configured settlement height places actions beneath its centered rectangle; dimensions remain Balance parameters."
+    },
+    {
+      "path": "scripts/campaign/level_catalog.gd",
+      "code": "if state == 2:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/campaign/level_catalog.gd",
+      "code": "visit_state[level_id] = 2",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var top_bar_height := 68.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var target_flash_seconds := 0.8",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var target_flash_alpha := 0.28",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_dim_alpha := 0.72",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_panel_width := 520.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_panel_height := 290.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_panel_border_width := 2.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_button_width := 220.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_button_height := 44.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_title_font_size := 30",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_body_font_size := 18",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_button_font_size := 18",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var settlement_button_gap := 12.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var flash_ratio := target_flash_remaining / maxf(target_flash_seconds, 0.000001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(22.0, 28.0), \"\" % [wave_index, wave_name],",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 18, color_text)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(22.0, 54.0), _time_label(),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 17, color_muted)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(260.0, 43.0), \"\" % [utilization * 100.0, target * 100.0],",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 24, color_success if target_reached else color_text)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(viewport_size.x - 230.0, 42.0), state_text,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 17, color_warning)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_rect(Rect2(14.0, top_bar_height + 16.0, 430.0, 184.0), Color(color_background, 0.85))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_multiline_string(ThemeDB.fallback_font, Vector2(28.0, top_bar_height + 40.0), debug,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, 400.0, 16, -1, color_muted)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var low := float(profile.value(\"\", 4.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var high := float(profile.value(\"\", 10.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "center + direction_vector * 28.0,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "center - direction_vector * 20.0 + tangent * 20.0,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "center - direction_vector * 20.0 - tangent * 20.0,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_colored_polygon(points, Color(color, 0.9))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, center + Vector2(-18.0, 40.0), \"\" % pressure,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_CENTER, 36.0, 15, color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var rect := Rect2(viewport_size.x - 330.0, top_bar_height + 22.0, 310.0, 54.0 + float((entry.types as Dictionary).size()) * 28.0)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_rect(rect, Color(color_background, 0.85))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_rect(rect, color_muted, false, 2.0)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, rect.position + Vector2(16.0, 28.0), \"\" % _direction_label(direction),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 18, color_text)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var y := rect.position.y + 56.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(rect.position.x + 16.0, y), \"\" % [name, int(entry.types[enemy_kind])],",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 16, color_muted)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "y += 28.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, panel_rect.position + Vector2(0.0, 58.0), _result_title(),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, panel_rect.position + Vector2(0.0, 108.0), \"\" % (utilization * 100.0),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, panel_rect.position + Vector2(0.0, 142.0), \"\" % (target * 100.0),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, panel_rect.position + Vector2(0.0, 174.0), \"\" % completed_waves,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, panel_rect.position + Vector2(0.0, 204.0 if mode == &\"\" or mode == &\"\" else 176.0), _result_reason(),",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var panel_size := Vector2(minf(settlement_panel_width, viewport_size.x - 32.0), minf(settlement_panel_height + extra_height, viewport_size.y - 32.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "return Rect2((viewport_size - panel_size) * 0.5, panel_size)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var maximum_width := (panel_rect.size.x - 32.0 - settlement_button_gap) * 0.5",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "return Rect2(Vector2(panel_rect.get_center().x - settlement_button_gap * 0.5 - button_size.x, panel_rect.end.y - button_size.y - 24.0 - extra_height), button_size)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var rect := Rect2(viewport_size.x * 0.5 - _visual_config.tutorial_instruction_width * 0.5,",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_rect(rect, Color(color_background, 0.86))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_rect(rect, color_success, false, 2.0)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, rect.position + Vector2(18.0, 33.0), text,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_CENTER, rect.size.x - 36.0, 18, color_text)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "\"\": return Rect2(12.0, viewport_size.y * 0.5 - 44.0, 88.0, 88.0)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "\"\": return Rect2(viewport_size.x * 0.5 - 44.0, top_bar_height + 6.0, 88.0, 88.0)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "\"\": return Rect2(viewport_size.x * 0.5 - 44.0, viewport_size.y - 100.0, 88.0, 88.0)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "_: return Rect2(viewport_size.x - 100.0, viewport_size.y * 0.5 - 44.0, 88.0, 88.0)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_pause_overlay.gd",
+      "code": "float(profile.value(\"\", 0.72))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_pause_overlay.gd",
+      "code": "panel.position = -panel_size * 0.5",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/combat_pause_overlay.gd",
+      "code": "var border_width := int(round(float(profile.value(\"\", 2.0))))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/combat_pause_overlay.gd",
+      "code": "var inner_margin := int(round(float(profile.value(\"\")) * 0.5))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/diode_tutorial_session.gd",
+      "code": "if level == null or level.waves.size() != 2:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/diode_tutorial_session.gd",
+      "code": "var muzzle := tower.position + Vector2(float(profile.value(\"\", 34.0)), 0.0)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_run_director.gd",
+      "code": "phase_remaining = float(profile.value(\"\", 20.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_run_director.gd",
+      "code": "phase_remaining = float(profile.value(\"\", 15.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_run_director.gd",
+      "code": "var configured := int(profile.value(\"\", 20260901))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_run_director.gd",
+      "code": "return int(Time.get_ticks_usec() % 2147483647)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "var duration := float(config.get(\"\", 90.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "var budget := float(config.get(\"\", 18.0)) \\",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "+ float(config.get(\"\", 4.0)) * float(index - 1)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "float(config.get(\"\", 0.6)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "float(config.get(\"\", 0.15))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "+ float(config.get(\"\", 0.015)) * float(index - 1)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "float(config.get(\"\", 0.45)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "float(config.get(\"\", 0.08)) * float(index - 1)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "\"\": int(config.get(\"\", 1000)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "var spawn_start := float(config.get(\"\", 0.1))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "var spawn_end := float(config.get(\"\", 0.75))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "var warning_lead := float(config.get(\"\", 8.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "var melee_threat := maxf(0.000001, float(profile.value(\"\", 1.0)))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "var ranged_threat := maxf(0.000001, float(profile.value(\"\", 1.4)))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "var share := maxf(0.0, float(shares[lane_index])) / maxf(total_share, 0.000001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/endless_wave_generator.gd",
+      "code": "return posmod(run_seed * 1664525 + wave_index * 1013904223, 2147483647)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/enemy_definition.gd",
+      "code": "@export var max_hp := 60.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_definition.gd",
+      "code": "@export var radius := 18.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_definition.gd",
+      "code": "@export var move_speed := 70.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_definition.gd",
+      "code": "@export var sense_radius := 220.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_definition.gd",
+      "code": "@export var attack_range := 38.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_definition.gd",
+      "code": "@export var attack_damage := 12.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_definition.gd",
+      "code": "@export var momentum_absorption := 0.35",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_definition.gd",
+      "code": "@export var entropy_transfer_ratio := 0.5",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var _target_refresh_seconds := 0.2",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var _target_spatial_cell_size := 256.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var _spawn_distribution_step := 0.61803398875",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var _ranged_ray_extra_distance := 100.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var _entropy_start := 50.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "_target_refresh_seconds = float(profile.value(\"\", 0.2))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "_target_spatial_cell_size = float(profile.value(\"\", 256.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "_spawn_distribution_step = float(profile.value(\"\", 0.61803398875))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "_ranged_ray_extra_distance = float(profile.value(\"\", 100.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "_entropy_start = float(profile.value(\"\", 50.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var radius := definition.activation_radius if definition != null else 28.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "\"\": float(profile.value(\"\", 0.12)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var inset := float(profile.value(\"\", 32.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "if distance_squared <= 0.00000001:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "if a <= 0.000001:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var b := 2.0 * offset.dot(segment)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var discriminant := b * b - 4.0 * a * c",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_manager.gd",
+      "code": "var fraction := (-b - sqrt(discriminant)) / (2.0 * a)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/enemy_runtime.gd",
+      "code": "\"\": clampf(1.0 - charge_remaining / maxf(definition.ranged_charge_seconds, 0.000001), 0.0, 1.0) if charge_remaining >= 0.0 else 0.0,",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/combat/runtime_menu_layer.gd",
+      "code": "layer = 90",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/combat/tower_controller.gd",
+      "code": "var radius := 42.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/tower_controller.gd",
+      "code": "var max_hp := 1000.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/tower_controller.gd",
+      "code": "var hp := 1000.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/wave_director.gd",
+      "code": "duration = float(wave.get(\"\", 90.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/wave_director.gd",
+      "code": "target_utilization = float(wave.get(\"\", 0.15))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/wave_director.gd",
+      "code": "wave.get(\"\", []), elapsed / maxf(duration, 0.000001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/combat/wave_director.gd",
+      "code": "group[\"\"] = float(group.get(\"\", start_time)) + interval / maxf(pressure, 0.000001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "_preview_entropy.max_value = 1000000.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "_preview_entropy.value = float(working.value(\"\", 50.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "spin.min_value = float(descriptor.get(\"\", -1000000000.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "spin.max_value = float(descriptor.get(\"\", 1000000000.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "spin.step = float(descriptor.get(\"\", 1.0 if bool(descriptor.get(\"\", false)) else 0.01))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "slider.custom_minimum_size.x = 150.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "var speed := float(working.value(\"\", 0.0)) * weight * 100.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "var mass := float(working.value(\"\", 0.0)) * weight * 100.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "var split_share := float(working.value(\"\", 0.0)) * weight * 100.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "var target_score := float(working.value(\"\", 0.0)) * weight * 100.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "for axis in 2:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "spin.min_value = float(axis_descriptor.get(\"\", -100000.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "spin.max_value = float(axis_descriptor.get(\"\", 100000.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "if values.size() < 2:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "if item is not Dictionary or not item.has(\"\") or not item.has(\"\") or item.size() != 2:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_panel.gd",
+      "code": "_common_grid.columns = 2 if size.x >= float(working.value(\"\")) else 1",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_profile.gd",
+      "code": "var start := float(entropy_section.get(\"\", 50.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_profile.gd",
+      "code": "var full := float(entropy_section.get(\"\", 100.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_profile.gd",
+      "code": "var normalized := (entropy_value - start) / maxf(full - start, 0.000001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/balance_profile.gd",
+      "code": "return float(value(\"\", 0.05)) * float(value(\"\", 240.0))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_profile.gd",
+      "code": "float(value(\"\", -2304.0)),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_profile.gd",
+      "code": "float(value(\"\", -1296.0)),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_profile.gd",
+      "code": "float(value(\"\", 4608.0)),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_profile.gd",
+      "code": "float(value(\"\", 2592.0))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/balance_runtime_overlay.gd",
+      "code": "layer = 100",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/entropy_curve_editor.gd",
+      "code": "custom_minimum_size = Vector2(340.0, 180.0)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/entropy_curve_editor.gd",
+      "code": "for index in range(1, 4):",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/config/entropy_curve_editor.gd",
+      "code": "var ratio := float(index) / 4.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/config/entropy_curve_editor.gd",
+      "code": "if points.size() < 2:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/config/entropy_curve_editor.gd",
+      "code": "draw_line(_to_screen(points[index]), _to_screen(points[index + 1]), Color(\"\"), 3.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/config/entropy_curve_editor.gd",
+      "code": "draw_circle(_to_screen(points[index]), 6.0, color)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/config/entropy_curve_editor.gd",
+      "code": "normalized.x = clampf(normalized.x, float(previous.x) + 0.001, float(following.x) - 0.001)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/config/entropy_curve_editor.gd",
+      "code": "var distance := 12.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/frontend/frontend_controller.gd",
+      "code": "var state_text := \"\" % [\"\" if completed else \"\", best * 100.0]",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/construction_controller.gd",
+      "code": "var destroy_effect_seconds := 0.35",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/construction_controller.gd",
+      "code": "var diode_teleport_pulse_seconds := 0.32",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/construction_controller.gd",
+      "code": "var device_hit_flash_seconds := 0.16",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/construction_controller.gd",
+      "code": "func pick(world_position: Vector2, radius: float = 38.0) -> Dictionary:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/construction_controller.gd",
+      "code": "and secondary_position.distance_squared_to(position) > 0.000001:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var activation_required := 30.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var max_hp := 100.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var light_radius := 260.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var activation_radius := 28.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var half_length := 48.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var speed_multiplier := 1.55",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var mass_multiplier := 1.55",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var splitter_half_separation := 36.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var field_radius := 120.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var electric_acceleration := 90.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var magnetic_angular_speed := 1.2",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var shockwave_radius := 36.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var wave_point_count := 48",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var wave_fan_radians := PI * 0.5",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var wave_speed := 360.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var reconstruction_mass := 0.05",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/device_definition.gd",
+      "code": "@export var reconstruction_speed := 240.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "var map_rect := Rect2(-2304.0, -1296.0, 4608.0, 2592.0)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "var grid_size := Vector2i(256, 144)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "var edge_softness := 54.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "var fog_color := Color(0.015, 0.02, 0.035, 0.96)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "grid_size = Vector2i(int(profile.value(\"\", 256)), int(profile.value(\"\", 144)))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "edge_softness = float(profile.value(\"\", 54.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "int(profile.value(\"\", 4)), int(profile.value(\"\", 5)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "int(profile.value(\"\", 9)), int(round(float(profile.value(\"\", 0.96)) * 255.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "if pixels.size() == grid_size.x * grid_size.y * 4:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "last_rebuild_milliseconds = float(Time.get_ticks_usec() - started) / 1000.0",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "map_rect.position.x + (float(x) + 0.5) / float(grid_size.x) * map_rect.size.x,",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/fog_of_war.gd",
+      "code": "map_rect.position.y + (float(y) + 0.5) / float(grid_size.y) * map_rect.size.y",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var map_rect := Rect2(-2304.0, -1296.0, 4608.0, 2592.0)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var target_radius := 34.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var low_hp_ratio := 0.3",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var low_hp_flash_milliseconds := 180",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var device_bar_width := 62.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var hp_bar_height := 5.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var activation_bar_height := 4.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var tower_collision_radius := 42.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var enemy_bar_width := 40.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var enemy_bar_height := 4.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var map_border_width := 5.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var grid_spacing := 128.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var destruction_fill_alpha := 0.32",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var destruction_stroke_width := 3.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var destruction_start_radius := 14.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var destruction_end_radius := 44.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var device_cull_margin := 200.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var selection_extra_radius := 16.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var selection_fill_alpha := 0.08",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var tower_bar_width := 96.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var tower_bar_height := 7.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var tracer_line_width := 3.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var enemy_fill_alpha := 0.28",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var dismantle_progress_width := 5.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var tutorial_path_width := 2.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var tutorial_cue_pulse_seconds := 1.2",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var diode_teleport_pulse_start_radius := 14.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var diode_teleport_pulse_end_radius := 42.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var diode_teleport_pulse_width := 3.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "tower_max_hp = maxf(new_tower_max_hp, 0.0001)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "last_draw_milliseconds = float(Time.get_ticks_usec() - started_usec) / 1000.0",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var total := maxf(float(effect.get(\"\", 0.35)), 0.0001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, retract_radius, -PI * 0.5, PI * 0.5, 14,",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, retract_radius, PI * 0.5, PI * 1.5, 14,",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, radius, 0.0, TAU, 20, Color(destruction_stroke_color, ratio), destruction_stroke_width, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var total := maxf(float(effect.get(\"\", 0.32)), 0.0001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_line(entry, exit, Color(diode_teleport_pulse_color, remaining_ratio * 0.65), diode_teleport_pulse_width, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(entry, radius, 0.0, TAU, 28, color, diode_teleport_pulse_width, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(exit, radius, 0.0, TAU, 28, color, diode_teleport_pulse_width, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_line(Vector2(map_rect.position.x, 0.0), Vector2(map_rect.end.x, 0.0), world_axis_color, 2.0)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(tower_position, tower_collision_radius, 0.0, TAU, 48, tower_color, 4.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_line(tower_position, tower_position + Vector2(tower_collision_radius + 14.0, 0.0), tower_color, 11.0, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_circle(tower_position, 12.0, tower_color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_string(ThemeDB.fallback_font, tower_position + Vector2(-54.0, tower_collision_radius + 34.0), \"\",",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 18, tower_color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_rect(Rect2(tower_position + Vector2(-tower_bar_width * 0.5, tower_collision_radius + 44.0), Vector2(tower_bar_width, tower_bar_height)), bar_background_color)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_rect(Rect2(tower_position + Vector2(-tower_bar_width * 0.5, tower_collision_radius + 44.0), Vector2(tower_bar_width * ratio, tower_bar_height)), low_hp_color if ratio <= low_hp_ratio else healthy_hp_color)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var radius := float(record.get(\"\", 16.0))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_arc(position, radius, 0.0, TAU, 24, color, 3.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_arc(position, radius + 5.0, 0.0, TAU, 24, enemy_entropy_color, 2.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_arc(position, radius + 9.0, -PI * 0.5, -PI * 0.5 + TAU * charge_ratio,",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "24, charge_color, 3.0, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var max_hp := maxf(float(record.get(\"\", 1.0)), 0.0001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var left := -enemy_bar_width * 0.5",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_rect(Rect2(position + Vector2(left, radius + 8.0), Vector2(enemy_bar_width, enemy_bar_height)), bar_background_color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_rect(Rect2(position + Vector2(left, radius + 8.0), Vector2(enemy_bar_width * hp / max_hp, enemy_bar_height)), low_hp_color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_circle(position, target_radius, Color(diagnostic_target_color, 0.14))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_arc(position, target_radius, 0.0, TAU, 36, diagnostic_target_color, 3.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_line(position - Vector2(15.0, 0.0), position + Vector2(15.0, 0.0), diagnostic_target_color, 2.0)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_line(position - Vector2(0.0, 15.0), position + Vector2(0.0, 15.0), diagnostic_target_color, 2.0)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var max_hp := maxf(float(record.get(\"\", 1.0)), 0.0001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "if hp / max_hp <= low_hp_ratio and int(Time.get_ticks_msec() / maxi(low_hp_flash_milliseconds, 1)) % 2 == 0:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(selection_position, selection_radius, 0.0, TAU, 36, Color.WHITE, 2.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(selection_position, selection_radius + 6.0, -PI * 0.5,",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "-PI * 0.5 + TAU * dismantle_progress, 40, dismantle_progress_color,",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "position + tangent * definition.half_length, Color(color, 0.25), 12.0, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "position + tangent * definition.half_length, color, 4.0, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, 27.0, 0.0, TAU, 32, color, 4.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "_draw_arrow(canvas, position - direction * 13.0, position + direction * 17.0, color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_rect(Rect2(position - Vector2(23.0, 23.0), Vector2(46.0, 46.0)), Color(color, 0.16), true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_rect(Rect2(position - Vector2(23.0, 23.0), Vector2(46.0, 46.0)), color, false, 4.0)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_circle(position, 9.0, color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_line(position - direction * 22.0, position + direction * 9.0, color, 4.0, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_line(position + direction * 9.0, endpoint, color, 3.0, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "_draw_arrow(canvas, endpoint, endpoint + direction * 20.0, color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_dashed_line(position, exit, Color(color, 0.58), 3.0, 12.0)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_circle(position, 23.0, Color(color, 0.12))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, 23.0, 0.0, TAU, 28, color, 4.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_string(ThemeDB.fallback_font, position + Vector2(-6.0, 7.0), \"\",",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 14, color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_circle(exit, 23.0, Color(color, 0.12))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(exit, 23.0, 0.0, TAU, 28, color, 4.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_string(ThemeDB.fallback_font, exit + Vector2(-6.0, 7.0), \"\",",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 14, color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "_draw_arrow(canvas, exit, exit + Vector2.RIGHT.rotated(exit_angle) * 30.0, color)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_circle(position, definition.field_radius, Color(color, 0.055))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, definition.field_radius, 0.0, TAU, 64, Color(color, 0.32), 2.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_circle(position, 27.0, Color(color, 0.16))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, 27.0, 0.0, TAU, 32, color, 4.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_string(ThemeDB.fallback_font, position + Vector2(-9.0, 8.0),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 22, color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, 28.0, -PI * 0.75, PI * 0.75, 28, color, 4.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "for offset in [-0.35, 0.0, 0.35]:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_line(position, position + direction.rotated(offset) * 35.0, Color(color, 0.75), 2.0)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_circle(position, 28.0, Color(color, 0.13))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, 28.0, 0.0, TAU, 32, color, 4.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, 18.0, -PI * 0.5, -PI * 0.5 + TAU * clampf(stored / maxf(definition.activation_required, 0.0001), 0.0, 1.0),",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "24, color, 6.0, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var max_hp := maxf(float(record.get(\"\", 1.0)), 0.0001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var required := maxf(float(record.get(\"\", 1.0)), 0.0001)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var left := -device_bar_width * 0.5",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_rect(Rect2(position + Vector2(left, 43.0), Vector2(device_bar_width, hp_bar_height)), bar_background_color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_rect(Rect2(position + Vector2(left, 43.0), Vector2(device_bar_width * hp / max_hp, hp_bar_height)), hp_color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_rect(Rect2(position + Vector2(left, 52.0), Vector2(device_bar_width, activation_bar_height)), bar_background_color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_rect(Rect2(position + Vector2(left, 52.0), Vector2(device_bar_width * clampf(progress / required, 0.0, 1.0), activation_bar_height)), color)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_line(from, to, color, 3.0, true)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_line(to, to - direction.rotated(0.65) * 9.0, color, 3.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_line(to, to - direction.rotated(-0.65) * 9.0, color, 3.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var pulse := 0.65 + 0.35 * sin(Time.get_ticks_msec() / maxf(tutorial_cue_pulse_seconds * 1000.0, 1.0) * TAU)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "Color(tutorial_path_color, pulse), tutorial_path_width, 14.0)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var radius := float(cue.get(\"\", 34.0)) * (0.92 + pulse * 0.08)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_circle(position, radius, Color(color, 0.06 + pulse * 0.06))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, radius, 0.0, TAU, 36, Color(color, pulse), 3.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_string(ThemeDB.fallback_font, position + Vector2(-radius, -radius - 12.0), label,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "HORIZONTAL_ALIGNMENT_CENTER, radius * 2.0, 15, color)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_camera_controller.gd",
+      "code": "var pan_speed := 760.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_camera_controller.gd",
+      "code": "var min_zoom := 0.5",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_camera_controller.gd",
+      "code": "var max_zoom := 1.5",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_camera_controller.gd",
+      "code": "var zoom_step_base := 1.12",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_camera_controller.gd",
+      "code": "return Rect2(camera.position - world_size * 0.5, world_size)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/prototype_camera_controller.gd",
+      "code": "var half_view := Vector2(viewport.get_visible_rect().size) * 0.5 / camera.zoom",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "var radial_radius := 112.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "var radial_dead_zone := 34.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "if event_messages.size() > 4:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "event_messages.resize(4)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_rect(Rect2(Vector2.ZERO, Vector2(size.x, 68.0)), color_background)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(22.0, 42.0), \"\",",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 24, color_text)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "var utilization := float(stats.get(\"\", 0.0)) * 100.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(size.x - 525.0, 40.0), metrics,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 16, color_active if utilization > 100.0 else color_text)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_rect(Rect2(0.0, size.y - 42.0, size.x, 42.0), color_background)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(22.0, size.y - 15.0), controls,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15, color_muted)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(size.x - 88.0, size.y - 15.0), fire_text,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15, color_active if auto_fire else color_warning)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "var message_y := 98.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(22.0, message_y), message,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15, Color(color_text, 0.78))",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "message_y += 22.0",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(size.x * 0.5 - 120.0, 98.0),",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "\"\", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 18, color_active)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "var center_angle := -PI * 0.5 + float(index) * sector_size",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "for step in 9:",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "var angle := center_angle - sector_size * 0.48 + sector_size * 0.96 * float(step) / 8.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "var fill := Color(definition.color, 0.42 if index == radial_hover else 0.20)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "var label_position := radial_center + Vector2.RIGHT.rotated(center_angle) * radial_radius * 0.6875",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, label_position - Vector2(19.0, -5.0),",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "definition.short_name, HORIZONTAL_ALIGNMENT_CENTER, 42.0, 14,",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "Color.WHITE if index == radial_hover else Color(color_text, 0.84))",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_arc(radial_center, radial_dead_zone, 0.0, TAU, 32, Color(\"\"), 2.0, true)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, radial_center + Vector2(-18.0, 6.0), \"\",",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "HORIZONTAL_ALIGNMENT_CENTER, 36.0, 13, color_muted)",
+      "reason": "Inherited presentation/algorithm literal retained for v0.4.1 behavior compatibility; not a newly introduced balance source. Review separately when editing this line."
+    },
+    {
+      "path": "scripts/prototype/simulation_controller.gd",
+      "code": "\"\": float(profile.value(\"\", 8.0)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/simulation_controller.gd",
+      "code": "\"\": float(profile.value(\"\", 8.0)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/simulation_controller.gd",
+      "code": "\"\": float(profile.value(\"\", 5.0)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/simulation_controller.gd",
+      "code": "\"\": float(profile.value(\"\", 0.45)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/simulation_controller.gd",
+      "code": "\"\": float(profile.value(\"\", 34.0)),",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/runtime/construction_input_controller.gd",
+      "code": "var held_seconds := float(Time.get_ticks_msec() - _press_started_msec) / 1000.0",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/runtime/construction_input_controller.gd",
+      "code": "var normalized_angle := fposmod(offset.angle() + PI * 0.5 + sector_size * 0.5, TAU)",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/runtime/construction_input_controller.gd",
+      "code": "return clampf(_dismantle_elapsed / maxf(_dismantle_hold_seconds, 0.000001), 0.0, 1.0)",
+      "reason": "Mathematical geometry, unit conversion or indexing; retain exact formula during behavior-preserving refactor."
+    },
+    {
+      "path": "scripts/runtime/world_runtime.gd",
+      "code": "var position := Vector2(float(profile.value(\"\")), (float(index) - float(count - 1) * 0.5) * float(profile.value(\"\")))",
+      "reason": "Inherited v0.4.1 defensive default/validation range; live values come from validated balance data."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(hold_position, _playtest_config.hold_ring_radius, -PI * 0.5,",
+      "reason": "Half pi sets the arc origin to the top; mathematical orientation, not balance."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "-PI * 0.5 + TAU * hold_progress, 36, tutorial_cue_color, _playtest_config.hold_ring_width, true)",
+      "reason": "Arc tessellation matches existing circles; all player-facing dimensions/color/time are configured."
+    },
+    {
+      "path": "scripts/runtime/construction_input_controller.gd",
+      "code": "return clampf(float(Time.get_ticks_msec() - _press_started_msec) / 1000.0 / _radial_hold_seconds, 0.0, 1.0)",
+      "reason": "Milliseconds-to-seconds unit conversion, same clock and threshold as radial activation."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "var width := minf(_visual_config.tutorial_instruction_width, viewport_size.x - inset * 2.0)",
+      "reason": "Symmetric left/right padding: twice the configured inset."
+    },
+    {
+      "path": "scripts/combat/combat_hud.gd",
+      "code": "paragraph.width = width - inset * 2.0",
+      "reason": "Symmetric left/right padding: twice the configured inset."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "var wing := (finish - start).length() * 0.25",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_line(finish, finish - direction.rotated(PI * 0.25) * wing, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_line(finish, finish - direction.rotated(-PI * 0.25) * wing, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_line(center + forward * radius * sign_value, center + forward * radius * sign_value + side * radius * 0.3, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "for fraction in [-0.55, 0.15, 0.8]:",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_polyline(PackedVector2Array([tip - forward * radius * 0.45 - side * radius * 0.65, tip, tip - forward * radius * 0.45 + side * radius * 0.65]), color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "polygon(canvas, center, radius, 6, angle, color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "polygon(canvas, center, radius * 0.65, 6, angle, Color(color, color.a * 0.6), width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_circle(center, radius * 0.28, color)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_line(center - forward * radius, exit - forward * radius * 0.2, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "arrow(canvas, exit - forward * radius * 0.2, exit + forward * radius * 0.7, color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_arc(center, radius, angle + PI * 0.2, angle + TAU - PI * 0.2, 32, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_arc(center, radius * 0.7, angle + PI * 0.4, angle + TAU - PI * 0.4, 28, Color(color, color.a * 0.55), width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "arrow(canvas, center - forward * radius * (0.2 if exit else 1.35), center + forward * radius * (1.35 if exit else 0.2), color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "polygon(canvas, center, radius, 4, angle + PI * 0.25, color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "for fraction in [-0.5, 0.0, 0.5]:",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "arrow(canvas, center + side * radius * fraction - forward * radius * 0.55, center + side * radius * fraction + forward * radius * 0.55, color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "for index in 3:",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "var start := angle + TAU * float(index) / 3.0 + phase",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_arc(center, radius, start, start + PI * 0.48, 14, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "var end := center + Vector2.RIGHT.rotated(start + PI * 0.48) * radius",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_circle(center, radius * 0.18, color)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_arc(center, radius, angle - PI * 0.25, angle + PI * 0.25, 20, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_arc(center, radius * 0.6, angle - PI * 0.25, angle + PI * 0.25, 16, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_line(center - forward * radius * 0.55, center + forward.rotated(sign_value * PI * 0.25) * radius, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "polygon(canvas, center, radius, 6, angle + PI * 0.5, color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_line(center - side * radius * 0.55 - forward * radius * 0.4, center + side * radius * 0.55 - forward * radius * 0.4, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_line(center - side * radius * 0.55 + forward * radius * 0.4, center + side * radius * 0.55 + forward * radius * 0.4, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "arrow(canvas, center, center + forward * radius * 1.25, color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "polygon(canvas, center, radius, 6, PI * 0.5, color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_arc(center, radius * 0.55, 0.0, TAU, 24, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "polygon(canvas, center, radius, 3, angle, color, width)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_glyphs.gd",
+      "code": "canvas.draw_line(center - Vector2.RIGHT.rotated(angle) * radius * 0.3, center + Vector2.RIGHT.rotated(angle) * radius * 0.6, color, width, true)",
+      "reason": "Authored normalized vector-art coordinates and polygon tessellation, equivalent to SVG control points; overall radius, line width, color and animation speed come from Balance."
+    },
+    {
+      "path": "scripts/presentation/energy_sound_bank.gd",
+      "code": "const PCM_MAX := 32767.0",
+      "reason": "Signed 16-bit PCM sample range and two-byte storage layout."
+    },
+    {
+      "path": "scripts/presentation/energy_sound_bank.gd",
+      "code": "const PCM_BYTES := 2",
+      "reason": "Signed 16-bit PCM sample range and two-byte storage layout."
+    },
+    {
+      "path": "scripts/presentation/presentation_settings.gd",
+      "code": "slider.step = 0.01",
+      "reason": "Volume editor precision: one percent input step, not a sound or gameplay default."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "EnergyGlyphs.polygon(canvas, tower_position, tower_collision_radius, 6, 0.0, tower_color, _energy.line_width)",
+      "reason": "Polygon side count, arc tessellation or normalized signed field-coordinate mapping; physical and visual radii/widths are configured."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(tower_position, tower_collision_radius * (1.0 + _energy.core_ratio), phase, phase + PI, 48, Color(tower_color, _energy.halo_alpha), _energy.halo_width, true)",
+      "reason": "Polygon side count, arc tessellation or normalized signed field-coordinate mapping; physical and visual radii/widths are configured."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, radius, phase, phase + PI, 32, Color(color, _energy.halo_alpha), _energy.halo_width, true)",
+      "reason": "Polygon side count, arc tessellation or normalized signed field-coordinate mapping; physical and visual radii/widths are configured."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, field_radius, 0.0, TAU, 64, Color(color, _energy.core_ratio), _energy.line_width, true)",
+      "reason": "Polygon side count, arc tessellation or normalized signed field-coordinate mapping; physical and visual radii/widths are configured."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var offset := direction.orthogonal() * field_radius * (fraction * 2.0 - 1.0)",
+      "reason": "Polygon side count, arc tessellation or normalized signed field-coordinate mapping; physical and visual radii/widths are configured."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "canvas.draw_arc(position, field_radius * fraction, phase + fraction * TAU, phase + fraction * TAU + PI, 32, Color(color, _energy.halo_alpha), _energy.line_width, true)",
+      "reason": "Polygon side count, arc tessellation or normalized signed field-coordinate mapping; physical and visual radii/widths are configured."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "draw_arc(effect.position, radius, 0.0, TAU, 32, Color(tower_color, ratio * _energy.core_ratio), _energy.line_width, false)",
+      "reason": "Polygon side count, arc tessellation or normalized signed field-coordinate mapping; physical and visual radii/widths are configured."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_multiline_string(ThemeDB.fallback_font, Vector2(_energy.ui_inset, size.y - _energy.ui_inset * 3.0), selected_context, HORIZONTAL_ALIGNMENT_LEFT, _energy.context_width, theme.default_font_size)",
+      "reason": "Existing label anchor and two-line context baseline layout; width and inset are configured."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, label_position - Vector2(19.0, -_energy.icon_radius),",
+      "reason": "Existing label anchor and two-line context baseline layout; width and inset are configured."
+    },
+    {
+      "path": "scripts/presentation/energy_backdrop.gd",
+      "code": "var radius := minf(size.x, size.y) * 0.36",
+      "reason": "Normalized menu artwork layout and arc tessellation; global intensity, line width and period are Balance parameters."
+    },
+    {
+      "path": "scripts/presentation/energy_backdrop.gd",
+      "code": "var center := Vector2(size.x * 0.12, size.y * 0.5)",
+      "reason": "Normalized menu artwork layout and arc tessellation; global intensity, line width and period are Balance parameters."
+    },
+    {
+      "path": "scripts/presentation/energy_backdrop.gd",
+      "code": "for index in 3:",
+      "reason": "Normalized menu artwork layout and arc tessellation; global intensity, line width and period are Balance parameters."
+    },
+    {
+      "path": "scripts/presentation/energy_backdrop.gd",
+      "code": "draw_arc(center, radius * float(index + 1) / 3.0, phase, phase + PI * 1.5, 64, Color(accent, config.halo_alpha), config.line_width, true)",
+      "reason": "Normalized menu artwork layout and arc tessellation; global intensity, line width and period are Balance parameters."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "if hp / max_hp <= low_hp_ratio and (reduced_motion or int(decoration_time * 1000.0 / maxi(low_hp_flash_milliseconds, 1)) % 2 == 0):",
+      "reason": "Existing pulse shape / millisecond conversion or polygon tessellation, with time source replaced by paused presentation clock; gameplay values unchanged."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var pulse := 1.0 if reduced_motion else 0.65 + 0.35 * sin(decoration_time / tutorial_cue_pulse_seconds * TAU)",
+      "reason": "Existing pulse shape / millisecond conversion or polygon tessellation, with time source replaced by paused presentation clock; gameplay values unchanged."
+    },
+    {
+      "path": "scripts/prototype/network_world_view.gd",
+      "code": "var facing := angle + (PI * 0.5 if kind == &\"\" else 0.0)",
+      "reason": "Quarter-turn converts the plate tangent to its normal; mathematical identity."
+    },
+    {
+      "path": "scripts/runtime/construction_input_controller.gd",
+      "code": "_preview_angle = wrapf(direction.angle() - (PI * 0.5 if definition.kind == &\"\" else 0.0), -PI, PI)",
+      "reason": "Inverse quarter-turn maps the cursor normal into the existing native tangent axis."
+    },
+    {
+      "path": "scripts/runtime/construction_input_controller.gd",
+      "code": "_radial_hover = int(floor(fposmod(offset.angle() + PI * 0.5 + sector_size * 0.5, TAU) / sector_size)) % _catalog.definitions.size()",
+      "reason": "Sector-center indexing and top-origin angular coordinate conversion."
+    },
+    {
+      "path": "scripts/runtime/world_screen.gd",
+      "code": "mouse_layer.layer = 5",
+      "reason": "Structural CanvasLayer order: world/HUD, mouse controls, then modal layers."
+    },
+    {
+      "path": "scripts/combat/combat_pause_overlay.gd",
+      "code": "panel.resized.connect(func(): panel.position = (size - panel.size) * 0.5)",
+      "reason": "Centering identity; panel minimum dimensions still come from Balance."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "draw_string(ThemeDB.fallback_font, Vector2(size.x - 525.0 - _input_config.action_button_width * 3.0 - _input_config.action_inset, 40.0), metrics,",
+      "reason": "Preserves existing DEV metrics geometry and reserves three configured button-width cells for the two mouse actions, including the wider autofire label. Button dimensions and inset remain configurable."
+    },
+    {
+      "path": "scripts/prototype/prototype_hud.gd",
+      "code": "for step in range(8, -1, -1):",
+      "reason": "Reverse traversal of existing eight-segment radial wedge tessellation to leave the center transparent for placement preview."
+    }
+  ]
+}

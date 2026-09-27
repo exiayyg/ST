@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/test_runtime_ux_regressions.gd" id="1_mbw1h"]
+
+[node name="RuntimeUxRegressionsTest" type="Node" unique_id=2069952304]
+script = ExtResource("1_mbw1h")

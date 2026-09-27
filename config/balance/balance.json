@@ -1,317 +1,630 @@
 {
+	"audio": {
+		"activate_cooldown": 0.15,
+		"activate_duration": 0.24,
+		"activate_frequency": 880,
+		"activate_gain": 0.8,
+		"activate_priority": 5,
+		"attack_seconds": 0.008,
+		"destroy_cooldown": 0.12,
+		"destroy_duration": 0.24,
+		"destroy_frequency": 90,
+		"destroy_gain": 0.8,
+		"destroy_priority": 6,
+		"device_check_seconds": 1,
+		"dismantle_cooldown": 0.1,
+		"dismantle_duration": 0.18,
+		"dismantle_frequency": 220,
+		"dismantle_gain": 0.65,
+		"dismantle_priority": 3,
+		"enemy_attack_cooldown": 0.12,
+		"enemy_attack_duration": 0.12,
+		"enemy_attack_frequency": 180,
+		"enemy_attack_gain": 0.5,
+		"enemy_attack_priority": 2,
+		"failure_cooldown": 1,
+		"failure_duration": 0.45,
+		"failure_frequency": 130,
+		"failure_gain": 0.8,
+		"failure_priority": 9,
+		"harmonic_multiple": 2,
+		"harmonic_ratio": 0.25,
+		"hit_cooldown": 0.08,
+		"hit_duration": 0.06,
+		"hit_frequency": 260,
+		"hit_gain": 0.45,
+		"hit_priority": 2,
+		"master_volume": 0.7,
+		"muted": false,
+		"peak_gain": 0.12,
+		"place_cooldown": 0.08,
+		"place_duration": 0.1,
+		"place_frequency": 440,
+		"place_gain": 0.7,
+		"place_priority": 2,
+		"release_ratio": 0.65,
+		"sample_rate": 22050,
+		"sfx_volume": 0.8,
+		"target_cooldown": 0.5,
+		"target_duration": 0.3,
+		"target_frequency": 1040,
+		"target_gain": 0.8,
+		"target_priority": 8,
+		"tower_fire_cooldown": 0.1,
+		"tower_fire_duration": 0.07,
+		"tower_fire_frequency": 150,
+		"tower_fire_gain": 0.35,
+		"tower_fire_priority": 1,
+		"transform_cooldown": 0.12,
+		"transform_duration": 0.09,
+		"transform_frequency": 620,
+		"transform_gain": 0.35,
+		"transform_priority": 1,
+		"ui_cancel_cooldown": 0.04,
+		"ui_cancel_duration": 0.09,
+		"ui_cancel_frequency": 330,
+		"ui_cancel_gain": 0.65,
+		"ui_cancel_priority": 4,
+		"ui_confirm_cooldown": 0.04,
+		"ui_confirm_duration": 0.08,
+		"ui_confirm_frequency": 740,
+		"ui_confirm_gain": 0.65,
+		"ui_confirm_priority": 4,
+		"ui_voices": 2,
+		"victory_cooldown": 1,
+		"victory_duration": 0.45,
+		"victory_frequency": 1320,
+		"victory_gain": 0.85,
+		"victory_priority": 9,
+		"warning_cooldown": 0.5,
+		"warning_duration": 0.3,
+		"warning_frequency": 520,
+		"warning_gain": 0.8,
+		"warning_priority": 7,
+		"world_voices": 8
+	},
 	"construction_ux": {
-		"damage_debug_amount": 25.0,
-		"device_pick_radius": 38.0,
-		"radial_dead_zone": 34.0,
+		"action_button_height": 36,
+		"action_button_width": 112,
+		"action_inset": 14,
+		"click_max_seconds": 0.5,
+		"damage_debug_amount": 25,
+		"device_pick_radius": 38,
+		"diode_initial_offset": 96,
+		"dismantle_hold_seconds": 0.6,
+		"gesture_tolerance": 4,
+		"preview_alpha": 0.65,
+		"preview_direction_length": 90,
+		"preview_font_size": 16,
+		"preview_line_width": 2,
+		"radial_bottom_clearance": 42,
+		"radial_dead_zone": 34,
 		"radial_hold_seconds": 0.35,
-		"radial_radius": 112.0,
-		"radial_screen_margin": 14.0,
-		"rotation_step_degrees": 15.0
+		"radial_radius": 112,
+		"radial_screen_margin": 14,
+		"radial_top_clearance": 68,
+		"rotation_center_dead_zone": 12
 	},
 	"devices": {
 		"accumulator": {
-			"activation_radius": 28.0,
-			"activation_required": 60.0,
+			"activation_radius": 28,
+			"activation_required": 60,
 			"color": "ffcf5c",
 			"display_name": "动量蓄积器",
-			"entropy_sensitivity": 1.0,
-			"light_radius": 260.0,
-			"max_hp": 100.0,
+			"entropy_sensitivity": 1,
+			"light_radius": 260,
+			"max_hp": 100,
 			"short_name": "蓄积"
 		},
 		"bounce_plate": {
-			"activation_radius": 28.0,
-			"activation_required": 30.0,
+			"activation_radius": 28,
+			"activation_required": 30,
 			"color": "ad8cff",
 			"display_name": "反弹板",
-			"entropy_sensitivity": 1.0,
-			"half_length": 48.0,
-			"light_radius": 260.0,
-			"max_hp": 100.0,
+			"entropy_sensitivity": 1,
+			"half_length": 48,
+			"light_radius": 260,
+			"max_hp": 100,
 			"short_name": "反弹"
 		},
 		"diode": {
-			"activation_radius": 28.0,
-			"activation_required": 60.0,
+			"activation_radius": 28,
+			"activation_required": 60,
 			"color": "5ee6a8",
 			"display_name": "二极管",
-			"entropy_sensitivity": 1.0,
-			"light_radius": 260.0,
-			"max_hp": 100.0,
+			"entropy_sensitivity": 1,
+			"light_radius": 260,
+			"max_hp": 100,
 			"short_name": "二极"
 		},
 		"electric_field": {
-			"activation_radius": 28.0,
-			"activation_required": 48.0,
+			"activation_radius": 28,
+			"activation_required": 48,
 			"color": "67b7ff",
 			"display_name": "电场",
-			"electric_acceleration": 90.0,
-			"entropy_sensitivity": 1.0,
-			"field_radius": 120.0,
-			"light_radius": 260.0,
-			"max_hp": 100.0,
+			"electric_acceleration": 90,
+			"entropy_sensitivity": 1,
+			"field_radius": 120,
+			"light_radius": 260,
+			"max_hp": 100,
 			"short_name": "电场"
 		},
 		"magnetic_field": {
-			"activation_radius": 28.0,
-			"activation_required": 60.0,
+			"activation_radius": 28,
+			"activation_required": 60,
 			"color": "ba8cff",
 			"display_name": "磁场",
-			"entropy_sensitivity": 1.0,
-			"field_radius": 140.0,
-			"light_radius": 260.0,
+			"entropy_sensitivity": 1,
+			"field_radius": 140,
+			"light_radius": 260,
 			"magnetic_angular_speed": 1.2,
-			"max_hp": 100.0,
-			"shockwave_radius": 36.0,
+			"max_hp": 100,
+			"shockwave_radius": 36,
 			"short_name": "磁场"
 		},
 		"mass_increaser": {
-			"activation_radius": 28.0,
-			"activation_required": 36.0,
+			"activation_radius": 28,
+			"activation_required": 36,
 			"color": "ff9f73",
 			"display_name": "质量器",
-			"entropy_sensitivity": 1.0,
-			"light_radius": 260.0,
+			"entropy_sensitivity": 1,
+			"light_radius": 260,
 			"mass_multiplier": 1.55,
-			"max_hp": 100.0,
+			"max_hp": 100,
 			"short_name": "增质"
 		},
 		"speed_increaser": {
-			"activation_radius": 28.0,
-			"activation_required": 30.0,
+			"activation_radius": 28,
+			"activation_required": 30,
 			"color": "f4cf67",
 			"display_name": "加速器",
-			"entropy_sensitivity": 1.0,
-			"light_radius": 260.0,
-			"max_hp": 100.0,
+			"entropy_sensitivity": 1,
+			"light_radius": 260,
+			"max_hp": 100,
 			"short_name": "加速",
 			"speed_multiplier": 1.55
 		},
 		"splitter": {
-			"activation_radius": 28.0,
-			"activation_required": 48.0,
+			"activation_radius": 28,
+			"activation_required": 48,
 			"color": "58d6ff",
 			"display_name": "分流器",
-			"entropy_sensitivity": 1.0,
-			"light_radius": 260.0,
-			"max_hp": 100.0,
+			"entropy_sensitivity": 1,
+			"light_radius": 260,
+			"max_hp": 100,
 			"short_name": "分流",
-			"splitter_half_separation": 36.0
+			"splitter_half_separation": 36
 		},
 		"wave_converter": {
-			"activation_radius": 28.0,
-			"activation_required": 72.0,
+			"activation_radius": 28,
+			"activation_required": 72,
 			"color": "66f3ff",
 			"display_name": "波粒转换器",
-			"entropy_sensitivity": 1.0,
-			"light_radius": 260.0,
-			"max_hp": 100.0,
+			"entropy_sensitivity": 1,
+			"light_radius": 260,
+			"max_hp": 100,
 			"reconstruction_mass": 0.05,
-			"reconstruction_speed": 240.0,
+			"reconstruction_speed": 240,
 			"short_name": "波粒",
-			"wave_fan_degrees": 90.0,
+			"wave_fan_degrees": 90,
 			"wave_point_count": 48,
-			"wave_speed": 360.0
+			"wave_speed": 360
 		}
 	},
 	"diagnostics": {
 		"performance_enemy_count": 300,
 		"stress_enemy_count": 1000,
 		"target_count": 3,
-		"target_damage_per_momentum": 1.0,
-		"target_momentum_absorption": 1.0,
-		"target_radius": 34.0,
-		"target_vertical_spacing": 480.0,
-		"target_x": 1800.0
+		"target_damage_per_momentum": 1,
+		"target_momentum_absorption": 1,
+		"target_radius": 34,
+		"target_vertical_spacing": 480,
+		"target_x": 1800
 	},
 	"enemies": {
 		"dev_melee": {
-			"aim_max_deviation_degrees": 0.0,
-			"attack_damage": 12.0,
-			"attack_interval": 1.0,
-			"attack_range": 38.0,
+			"aim_max_deviation_degrees": 0,
+			"attack_damage": 12,
+			"attack_interval": 1,
+			"attack_range": 38,
 			"color": "ff6b7a",
-			"damage_per_momentum": 1.0,
+			"damage_per_momentum": 1,
 			"display_name": "DEV_近战测试体",
-			"entropy_decay_per_second": 0.0,
+			"entropy_decay_per_second": 0,
 			"entropy_transfer_ratio": 0.5,
-			"max_hp": 60.0,
+			"max_hp": 60,
 			"momentum_absorption": 0.35,
-			"move_speed": 70.0,
-			"radius": 18.0,
+			"move_speed": 70,
+			"radius": 18,
 			"ranged": false,
-			"ranged_charge_seconds": 0.0,
-			"sense_radius": 220.0,
-			"threat_weight": 1.0
+			"ranged_charge_seconds": 0,
+			"sense_radius": 220,
+			"threat_weight": 1
 		},
 		"dev_ranged": {
-			"aim_max_deviation_degrees": 18.0,
-			"attack_damage": 8.0,
+			"aim_max_deviation_degrees": 18,
+			"attack_damage": 8,
 			"attack_interval": 1.4,
-			"attack_range": 320.0,
+			"attack_range": 320,
 			"color": "ffad73",
-			"damage_per_momentum": 1.0,
+			"damage_per_momentum": 1,
 			"display_name": "DEV_远程测试体",
-			"entropy_decay_per_second": 0.0,
+			"entropy_decay_per_second": 0,
 			"entropy_transfer_ratio": 0.5,
-			"max_hp": 40.0,
+			"max_hp": 40,
 			"momentum_absorption": 0.25,
-			"move_speed": 55.0,
-			"radius": 16.0,
+			"move_speed": 55,
+			"radius": 16,
 			"ranged": true,
 			"ranged_charge_seconds": 0.55,
-			"sense_radius": 420.0,
+			"sense_radius": 420,
 			"threat_weight": 1.4
 		},
 		"settings": {
-			"ranged_ray_extra_distance": 100.0,
+			"ranged_ray_extra_distance": 100,
 			"spawn_distribution_step": 0.61803398875,
-			"spawn_edge_inset": 32.0,
-			"target_forward_dot_min": 0.0,
+			"spawn_edge_inset": 32,
+			"target_forward_dot_min": 0,
 			"target_refresh_seconds": 0.2,
-			"target_spatial_cell_size": 256.0
+			"target_spatial_cell_size": 256
+		},
+		"tutorial_breaker": {
+			"aim_max_deviation_degrees": 0,
+			"attack_damage": 11,
+			"attack_interval": 1.05,
+			"attack_range": 40,
+			"color": "ff6078",
+			"damage_per_momentum": 1,
+			"display_name": "教学·破线者",
+			"entropy_decay_per_second": 0,
+			"entropy_transfer_ratio": 0.5,
+			"max_hp": 64,
+			"momentum_absorption": 0.35,
+			"move_speed": 68,
+			"radius": 18,
+			"ranged": false,
+			"ranged_charge_seconds": 0,
+			"sense_radius": 240,
+			"threat_weight": 1
+		},
+		"tutorial_suppressor": {
+			"aim_max_deviation_degrees": 18,
+			"attack_damage": 8,
+			"attack_interval": 1.5,
+			"attack_range": 340,
+			"color": "ffb15d",
+			"damage_per_momentum": 1,
+			"display_name": "教学·压制者",
+			"entropy_decay_per_second": 0,
+			"entropy_transfer_ratio": 0.5,
+			"max_hp": 44,
+			"momentum_absorption": 0.25,
+			"move_speed": 54,
+			"radius": 16,
+			"ranged": true,
+			"ranged_charge_seconds": 0.65,
+			"sense_radius": 460,
+			"threat_weight": 1.4
 		}
 	},
 	"entropy": {
-		"full_effect_entropy": 100.0,
+		"full_effect_entropy": 100,
 		"interaction_acceleration": 0.2,
 		"max_angle_deviation_degrees": 5.7295779513,
 		"max_diode_angle_deviation_degrees": 5.7295779513,
-		"max_diode_exit_offset": 8.0,
-		"max_enemy_shield_position_offset": 12.0,
+		"max_diode_exit_offset": 8,
+		"max_enemy_shield_position_offset": 12,
 		"max_enemy_target_score_deviation_ratio": 0.15,
 		"max_mass_deviation_ratio": 0.08,
 		"max_speed_deviation_ratio": 0.08,
 		"max_split_direction_deviation_degrees": 5.7295779513,
 		"max_split_share_deviation_ratio": 0.08,
-		"per_interaction": 12.0,
+		"per_interaction": 12,
 		"per_second": 1.8,
-		"start_entropy": 50.0,
+		"start_entropy": 50,
 		"uncertainty_curve": [
 			{
-				"x": 0.0,
-				"y": 0.0
+				"x": 0,
+				"y": 0
 			},
 			{
-				"x": 1.0,
-				"y": 1.0
+				"x": 1,
+				"y": 1
 			}
 		],
-		"visual_full_entropy": 100.0,
-		"visual_start_entropy": 0.0
+		"visual_full_entropy": 100,
+		"visual_start_entropy": 0
 	},
 	"fog": {
 		"dark_blue": 9,
 		"dark_green": 5,
 		"dark_red": 4,
-		"edge_softness": 54.0,
+		"edge_softness": 54,
 		"grid_height": 144,
 		"grid_width": 256,
 		"maximum_alpha": 0.96
 	},
+	"frontend": {
+		"body_font_size": 18,
+		"button_height": 52,
+		"card_height": 96,
+		"confirmation_width": 520,
+		"content_width": 760,
+		"item_gap": 12,
+		"outer_margin": 48,
+		"pause_panel_height": 360,
+		"pause_panel_width": 520,
+		"subtitle_font_size": 20,
+		"title_font_size": 48,
+		"tuning_columns_breakpoint": 1100,
+		"tuning_common_gap": 12,
+		"tuning_error_height": 70,
+		"tuning_field_label_width": 330,
+		"tuning_inset_x": 80,
+		"tuning_inset_y": 50,
+		"tuning_label_width": 200,
+		"tuning_min_height": 540,
+		"tuning_title_font_size": 22
+	},
+	"levels": {
+		"diode_tutorial": {
+			"direction_hint_length": 90,
+			"direction_tolerance_degrees": 20,
+			"display_name": "第一关：改写路径",
+			"feedback": {
+				"confirmation_seconds": 3,
+				"no_damage_seconds": 8,
+				"reminder_interval_seconds": 12
+			},
+			"intermission_seconds": 20,
+			"lesson_device": "diode",
+			"marker_radius": 34,
+			"observation_seconds": 3,
+			"path_hint_length": 900,
+			"practice_entry_x": 120,
+			"practice_entry_y": 120,
+			"practice_exit_x": 240,
+			"practice_exit_y": 120,
+			"route_entry_x": 180,
+			"route_entry_y": 0,
+			"route_exit_angle_degrees": -90,
+			"route_exit_x": 0,
+			"route_exit_y": -180,
+			"route_min_north_distance": 34,
+			"session_kind": "tutorial_diode",
+			"waves": [
+				{
+					"display_name": "北侧破线",
+					"duration": 75,
+					"finish_policy": "clear",
+					"groups": [
+						{
+							"count": 8,
+							"direction": "north",
+							"end_time": 58,
+							"enemy": "tutorial_breaker",
+							"spawn_region": {
+								"center_ratio": 0.5,
+								"half_width": 24,
+								"mode": "segment"
+							},
+							"start_time": 8,
+							"warning_lead": 8
+						}
+					],
+					"pressure_curve": [
+						{
+							"x": 0,
+							"y": 1
+						},
+						{
+							"x": 1,
+							"y": 1.35
+						}
+					],
+					"target_utilization": 0.1
+				},
+				{
+					"display_name": "北侧压制",
+					"duration": 120,
+					"finish_policy": "clear",
+					"groups": [
+						{
+							"count": 6,
+							"direction": "north",
+							"end_time": 88,
+							"enemy": "tutorial_breaker",
+							"spawn_region": {
+								"center_ratio": 0.5,
+								"half_width": 48,
+								"mode": "segment"
+							},
+							"start_time": 8,
+							"warning_lead": 8
+						},
+						{
+							"count": 5,
+							"direction": "north",
+							"end_time": 100,
+							"enemy": "tutorial_suppressor",
+							"spawn_region": {
+								"center_ratio": 0.54,
+								"half_width": 48,
+								"mode": "segment"
+							},
+							"start_time": 8,
+							"warning_lead": 10
+						}
+					],
+					"pressure_curve": [
+						{
+							"x": 0,
+							"y": 1
+						},
+						{
+							"x": 0.65,
+							"y": 1.2
+						},
+						{
+							"x": 1,
+							"y": 1.55
+						}
+					],
+					"target_utilization": 0.18
+				}
+			]
+		}
+	},
 	"map_camera": {
-		"map_height": 2592.0,
-		"map_margin": 48.0,
-		"map_width": 4608.0,
-		"map_x": -2304.0,
-		"map_y": -1296.0,
+		"map_height": 2592,
+		"map_margin": 48,
+		"map_width": 4608,
+		"map_x": -2304,
+		"map_y": -1296,
 		"max_zoom": 1.5,
 		"min_zoom": 0.5,
-		"pan_speed": 760.0,
+		"pan_speed": 760,
 		"zoom_step_base": 1.12
 	},
-	"schema_version": 2,
+	"playtest": {
+		"consent_width": 620,
+		"endpoint_label_font_size": 16,
+		"endpoint_label_offset": 48,
+		"enemy_hit_flash_color": "fff4c2",
+		"enemy_hit_flash_seconds": 0.14,
+		"exit_arrow_length": 70,
+		"feedback_field_height": 72,
+		"flush_interval_seconds": 5,
+		"hold_ring_radius": 22,
+		"hold_ring_width": 3,
+		"sample_interval_seconds": 1
+	},
+	"presentation": {
+		"body_radius": 23,
+		"context_width": 380,
+		"core_ratio": 0.36,
+		"cycle_seconds": 3,
+		"effect_limit": 8,
+		"effect_radius": 32,
+		"effect_seconds": 0.26,
+		"enabled": true,
+		"field_line_count": 5,
+		"halo_alpha": 0.12,
+		"halo_width": 6,
+		"icon_radius": 13,
+		"line_width": 2,
+		"particle_core_ratio": 0.55,
+		"particle_edge_ratio": 0.72,
+		"particle_white_ratio": 0.42,
+		"reduced_motion": false,
+		"settings_width": 520,
+		"ui_corner_radius": 8,
+		"ui_inset": 18
+	},
+	"schema_version": 11,
 	"simulation": {
-		"enemy_spatial_cell_size": 160.0,
-		"entity_spawn_clearance": 1.0,
+		"enemy_spatial_cell_size": 160,
+		"entity_spawn_clearance": 1,
 		"fixed_step_seconds": 0.00833333333333333,
 		"max_interactions_per_step": 16,
 		"max_substeps": 16,
 		"momentum_zero_epsilon": 0.000001,
-		"projectile_radius": 4.0,
+		"projectile_radius": 4,
 		"random_seed": 20260901,
-		"render_snapshot_margin": 96.0,
-		"spatial_cell_size": 160.0,
-		"wave_point_radius": 2.0
+		"render_snapshot_margin": 96,
+		"spatial_cell_size": 160,
+		"wave_point_radius": 2
 	},
 	"tower": {
-		"collision_radius": 42.0,
-		"fire_interval": 0.08,
-		"lane_count": 3,
-		"lane_spacing": 5.0,
-		"light_radius": 360.0,
-		"max_hp": 1000.0,
-		"muzzle_offset": 34.0,
-		"position_x": 0.0,
-		"position_y": 0.0,
+		"collision_radius": 42,
+		"fire_interval": 1,
+		"light_radius": 360,
+		"max_hp": 1000,
+		"muzzle_offset": 34,
+		"position_x": 0,
+		"position_y": 0,
 		"projectile_mass": 0.05,
-		"projectile_speed": 240.0
+		"projectile_speed": 240
 	},
 	"visuals": {
 		"bar_background_color": "202938",
 		"charge_color": "fff0a6",
-		"destroy_effect_end_radius": 44.0,
+		"destroy_effect_end_radius": 44,
 		"destroy_effect_seconds": 0.35,
-		"destroy_effect_start_radius": 14.0,
+		"destroy_effect_start_radius": 14,
 		"destruction_fill_alpha": 0.32,
 		"destruction_fill_color": "8c949e",
 		"destruction_stroke_color": "bfc7d1",
-		"destruction_stroke_width": 3.0,
-		"device_activation_bar_height": 4.0,
-		"device_bar_width": 62.0,
-		"device_cull_margin": 200.0,
+		"destruction_stroke_width": 3,
+		"device_activation_bar_height": 4,
+		"device_bar_width": 62,
+		"device_cull_margin": 200,
 		"device_hit_flash_color": "fff2f4",
 		"device_hit_flash_seconds": 0.16,
-		"device_hp_bar_height": 5.0,
+		"device_hp_bar_height": 5,
 		"diagnostic_target_color": "ff6b7a",
-		"enemy_bar_height": 4.0,
-		"enemy_bar_width": 40.0,
+		"diode_teleport_pulse_color": "65f4ff",
+		"diode_teleport_pulse_end_radius": 42,
+		"diode_teleport_pulse_seconds": 0.32,
+		"diode_teleport_pulse_start_radius": 14,
+		"diode_teleport_pulse_width": 3,
+		"dismantle_progress_color": "ffcf5c",
+		"dismantle_progress_width": 5,
+		"enemy_bar_height": 4,
+		"enemy_bar_width": 40,
 		"enemy_entropy_color": "ff4d62",
 		"enemy_fill_alpha": 0.28,
-		"grid_spacing": 128.0,
+		"grid_spacing": 128,
 		"healthy_hp_color": "65eaa8",
 		"hud_background_color": "090d14",
 		"hud_danger_color": "ff5d6c",
 		"hud_muted_color": "8190a8",
 		"hud_success_color": "5ee6a8",
 		"hud_text_color": "dce7f7",
-		"hud_top_bar_height": 68.0,
+		"hud_top_bar_height": 68,
 		"hud_warning_color": "ffcf5c",
 		"inactive_device_color": "697386",
 		"low_hp_color": "ff4d62",
 		"low_hp_flash_milliseconds": 180,
 		"low_hp_ratio": 0.3,
 		"map_border_color": "51627b",
-		"map_border_width": 5.0,
-		"projectile_base_diameter": 8.0,
+		"map_border_width": 5,
+		"projectile_base_diameter": 8,
 		"projectile_charge_blend_ratio": 0.45,
 		"projectile_charged_color": "ffe36b",
-		"projectile_entropy_extra_diameter": 8.0,
+		"projectile_entropy_extra_diameter": 8,
 		"projectile_high_entropy_color": "ff765f",
 		"projectile_low_entropy_color": "79d7ff",
-		"selection_extra_radius": 16.0,
+		"selection_extra_radius": 16,
 		"selection_fill_alpha": 0.08,
 		"settlement_body_font_size": 18,
 		"settlement_button_font_size": 18,
-		"settlement_button_height": 44.0,
-		"settlement_button_width": 220.0,
+		"settlement_button_height": 44,
+		"settlement_button_width": 220,
 		"settlement_dim_alpha": 0.72,
-		"settlement_panel_border_width": 2.0,
-		"settlement_panel_height": 290.0,
-		"settlement_panel_width": 520.0,
+		"settlement_panel_border_width": 2,
+		"settlement_panel_height": 290,
+		"settlement_panel_width": 520,
 		"settlement_title_font_size": 30,
 		"target_reached_flash_alpha": 0.28,
 		"target_reached_flash_seconds": 0.8,
-		"tower_bar_height": 7.0,
-		"tower_bar_width": 96.0,
+		"tower_bar_height": 7,
+		"tower_bar_width": 96,
 		"tower_color": "79d7ff",
 		"tower_fill_color": "172a39",
-		"tracer_line_width": 3.0,
+		"tracer_line_width": 3,
 		"tracer_seconds": 0.12,
+		"tutorial_cue_color": "5ee6a8",
+		"tutorial_cue_pulse_seconds": 1.2,
+		"tutorial_instruction_height": 52,
+		"tutorial_instruction_top_offset": 104,
+		"tutorial_instruction_width": 660,
+		"tutorial_path_color": "79d7ff",
+		"tutorial_path_width": 2,
 		"warning_high_threshold": 10,
 		"warning_low_threshold": 4,
 		"wave_point_color": "65f4ff",
-		"wave_point_diameter": 5.0,
+		"wave_point_diameter": 5,
 		"world_axis_color": "2b3b52",
 		"world_background_color": "0d121c",
 		"world_grid_color": "1b2637"
@@ -319,50 +632,70 @@
 	"waves": {
 		"dev_wave_01": {
 			"display_name": "DEV 战斗骨架",
-			"duration": 90.0,
+			"duration": 90,
 			"finish_policy": "immediate",
 			"groups": [
 				{
 					"count": 8,
 					"direction": "east",
-					"end_time": 20.0,
+					"end_time": 20,
 					"enemy": "dev_melee",
-					"start_time": 8.0,
-					"warning_lead": 8.0
+					"spawn_region": {
+						"center_ratio": 0.5,
+						"half_width": 0,
+						"mode": "full_edge"
+					},
+					"start_time": 8,
+					"warning_lead": 8
 				},
 				{
 					"count": 6,
 					"direction": "north",
-					"end_time": 36.0,
+					"end_time": 36,
 					"enemy": "dev_ranged",
-					"start_time": 24.0,
-					"warning_lead": 8.0
+					"spawn_region": {
+						"center_ratio": 0.5,
+						"half_width": 0,
+						"mode": "full_edge"
+					},
+					"start_time": 24,
+					"warning_lead": 8
 				},
 				{
 					"count": 10,
 					"direction": "south",
-					"end_time": 65.0,
+					"end_time": 65,
 					"enemy": "dev_melee",
-					"start_time": 45.0,
-					"warning_lead": 8.0
+					"spawn_region": {
+						"center_ratio": 0.5,
+						"half_width": 0,
+						"mode": "full_edge"
+					},
+					"start_time": 45,
+					"warning_lead": 8
 				},
 				{
 					"count": 6,
 					"direction": "south",
-					"end_time": 65.0,
+					"end_time": 65,
 					"enemy": "dev_ranged",
-					"start_time": 45.0,
-					"warning_lead": 8.0
+					"spawn_region": {
+						"center_ratio": 0.5,
+						"half_width": 0,
+						"mode": "full_edge"
+					},
+					"start_time": 45,
+					"warning_lead": 8
 				}
 			],
 			"pressure_curve": [
 				{
-					"x": 0.0,
-					"y": 1.0
+					"x": 0,
+					"y": 1
 				},
 				{
 					"x": 0.33,
-					"y": 1.0
+					"y": 1
 				},
 				{
 					"x": 0.34,
@@ -377,7 +710,7 @@
 					"y": 1.75
 				},
 				{
-					"x": 1.0,
+					"x": 1,
 					"y": 1.75
 				}
 			],
@@ -385,23 +718,23 @@
 		},
 		"endless": {
 			"base_target_utilization": 0.15,
-			"base_threat_budget": 18.0,
+			"base_threat_budget": 18,
 			"damage_growth_per_wave": 0.02,
-			"damage_multiplier_cap": 2.0,
+			"damage_multiplier_cap": 2,
 			"display_name": "DEV 无尽模式",
 			"hp_growth_per_wave": 0.03,
 			"hp_multiplier_cap": 2.5,
-			"intermission_seconds": 15.0,
+			"intermission_seconds": 15,
 			"max_active_enemy_guard": 1000,
-			"opening_preparation_seconds": 20.0,
+			"opening_preparation_seconds": 20,
 			"pressure_curve": [
 				{
-					"x": 0.0,
-					"y": 1.0
+					"x": 0,
+					"y": 1
 				},
 				{
 					"x": 0.33,
-					"y": 1.0
+					"y": 1
 				},
 				{
 					"x": 0.34,
@@ -416,7 +749,7 @@
 					"y": 1.75
 				},
 				{
-					"x": 1.0,
+					"x": 1,
 					"y": 1.75
 				}
 			],
@@ -433,7 +766,7 @@
 			"templates": [
 				{
 					"budget_shares": [
-						1.0
+						1
 					],
 					"direction_offsets": [
 						0
@@ -443,9 +776,9 @@
 					"id": "single_front",
 					"min_wave": 1,
 					"start_delay_ratios": [
-						0.0
+						0
 					],
-					"weight": 1.0
+					"weight": 1
 				},
 				{
 					"budget_shares": [
@@ -461,10 +794,10 @@
 					"id": "adjacent_split",
 					"min_wave": 2,
 					"start_delay_ratios": [
-						0.0,
+						0,
 						0.12
 					],
-					"weight": 1.0
+					"weight": 1
 				},
 				{
 					"budget_shares": [
@@ -480,10 +813,10 @@
 					"id": "opposite_pincer",
 					"min_wave": 3,
 					"start_delay_ratios": [
-						0.0,
-						0.0
+						0,
+						0
 					],
-					"weight": 1.0
+					"weight": 1
 				},
 				{
 					"budget_shares": [
@@ -501,7 +834,7 @@
 					"id": "three_front_staggered",
 					"min_wave": 5,
 					"start_delay_ratios": [
-						0.0,
+						0,
 						0.12,
 						0.24
 					],
@@ -525,7 +858,7 @@
 					"id": "four_front_pressure",
 					"min_wave": 8,
 					"start_delay_ratios": [
-						0.0,
+						0,
 						0.08,
 						0.16,
 						0.24
@@ -533,9 +866,9 @@
 					"weight": 0.6
 				}
 			],
-			"threat_budget_growth_per_wave": 4.0,
-			"warning_lead_seconds": 8.0,
-			"wave_duration_seconds": 90.0
+			"threat_budget_growth_per_wave": 4,
+			"warning_lead_seconds": 8,
+			"wave_duration_seconds": 90
 		}
 	}
 }

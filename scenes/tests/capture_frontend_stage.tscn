@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/capture_frontend_stage.gd" id="1_ems5o"]
+
+[node name="CaptureFrontendStage" type="Node" unique_id=2003661052]
+script = ExtResource("1_ems5o")

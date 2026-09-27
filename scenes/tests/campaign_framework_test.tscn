@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/test_campaign_framework.gd" id="1_ihyiq"]
+
+[node name="CampaignFrameworkTest" type="Node" unique_id=1509044354]
+script = ExtResource("1_ihyiq")

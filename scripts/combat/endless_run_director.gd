@@ -122,6 +122,15 @@ func is_terminal() -> bool:
 	return state == State.FAILED
 
 
+func completion_snapshot() -> Dictionary:
+	return {
+		"result": result,
+		"utilization": float(final_stats.get("utilization", 0.0)),
+		"completed_waves": completed_waves,
+		"reason": result,
+	}
+
+
 func _start_next_wave() -> void:
 	wave_index += 1
 	var spec := pending_spec.duplicate(true) if int(pending_spec.get("wave_index", 0)) == wave_index else generator.generate(wave_index, run_seed)

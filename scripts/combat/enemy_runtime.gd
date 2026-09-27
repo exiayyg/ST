@@ -14,7 +14,9 @@ var charge_remaining := -1.0
 var target_refresh_remaining := 0.0
 var target_kind: StringName = &"tower"
 var target_id := 0
+var target_anchor := 0
 var alive := true
+var hit_flash_remaining := 0.0
 
 
 func _init(
@@ -38,6 +40,7 @@ func _init(
 func view_record() -> Dictionary:
 	return {
 		"id": id,
+		"hit_flash_remaining": hit_flash_remaining,
 		"position": position,
 		"hp": hp,
 		"max_hp": max_hp,

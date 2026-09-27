@@ -16,12 +16,17 @@ func _init(
 ) -> void:
 	configured_wave_id = wave_id
 	wave_director = WaveDirectorType.new(profile, manager, simulation, tower) as WaveDirector
-	wave_director.target_reached.connect(func(): target_reached.emit(1))
-	wave_director.wave_finished.connect(func(result: StringName):
-		wave_finished.emit(1, result)
-		if result != &"success":
-			run_finished.emit(result)
-	)
+	wave_director.target_reached.connect(_on_target_reached)
+	wave_director.wave_finished.connect(_on_wave_finished)
+
+
+func _on_target_reached() -> void:
+	target_reached.emit(1)
+
+
+func _on_wave_finished(result: StringName) -> void:
+	wave_finished.emit(1, result)
+	run_finished.emit(result)
 
 
 func start() -> bool:
@@ -61,6 +66,16 @@ func should_simulate_enemies() -> bool:
 
 func is_terminal() -> bool:
 	return wave_director.is_terminal()
+
+
+func completion_snapshot() -> Dictionary:
+	var final := wave_director.final_stats
+	return {
+		"result": wave_director.result,
+		"utilization": float(final.get("utilization", 0.0)),
+		"completed_waves": 1 if wave_director.result == &"success" else 0,
+		"reason": wave_director.result,
+	}
 
 
 func _phase_name() -> StringName:

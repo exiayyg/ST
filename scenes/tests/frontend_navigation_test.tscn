@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/test_frontend_navigation.gd" id="1_qm3fk"]
+
+[node name="FrontendNavigationTest" type="Node" unique_id=1482789803]
+script = ExtResource("1_qm3fk")

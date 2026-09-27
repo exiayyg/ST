@@ -14,6 +14,7 @@ var _reached_count := 0
 var _finished_count := 0
 var _failure_result: StringName
 var _restart_count := 0
+var _return_count := 0
 
 
 func _init() -> void:
@@ -178,6 +179,7 @@ func _run() -> void:
 	hud.set_state(wave_director, wave_director.stats_for_display({"utilization": 9.0}), wave_tower)
 	_restart_count = 0
 	hud.restart_requested.connect(func(): _restart_count += 1)
+	hud.return_requested.connect(func(): _return_count += 1)
 	var restart_event := InputEventMouseButton.new()
 	restart_event.button_index = MOUSE_BUTTON_LEFT
 	restart_event.pressed = true
@@ -186,6 +188,17 @@ func _run() -> void:
 	hud._gui_input(restart_event)
 	_check(hud.terminal and _restart_count == 1,
 			"terminal settlement must expose a clickable restart action")
+	hud.set_campaign_navigation(true)
+	var return_event := InputEventMouseButton.new()
+	return_event.button_index = MOUSE_BUTTON_LEFT
+	return_event.pressed = true
+	var return_rect: Rect2 = hud.call("_settlement_return_button_rect", hud.get_viewport_rect().size)
+	return_event.position = return_rect.get_center()
+	hud._gui_input(return_event)
+	_check(_return_count == 1, "campaign settlement must expose a separate return-to-level-select action")
+	hud.request_default_terminal_action()
+	_check(_return_count == 2 and _restart_count == 1,
+			"successful campaign settlement must default Enter to return rather than replay")
 	hud.free()
 
 	var failed_tower := TowerControllerType.new(profile) as TowerController
@@ -201,5 +214,5 @@ func _run() -> void:
 			"failure settlement must preserve the final ledger from the decisive frame")
 
 	if not _failed:
-		print("Combat vertical-slice tests passed: ledger freeze, proxy suspension, paired destruction, hit feedback, settlement restart and wave ordering")
+		print("Combat vertical-slice tests passed: ledger freeze, proxy suspension, paired destruction, hit feedback, settlement navigation and wave ordering")
 	quit(1 if _failed else 0)

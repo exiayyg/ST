@@ -2,8 +2,17 @@ class_name BalanceProfile
 extends Resource
 
 const BalanceSchemaType := preload("res://scripts/config/balance_schema.gd")
+const RuntimeBalanceType := preload("res://scripts/config/runtime_balance.gd")
 
-var data: Dictionary = {}
+var _data: Dictionary = {}
+var data: Dictionary:
+	get: return _data
+	set(value):
+		if not _sealed:
+			_data = value.duplicate(true)
+var _sealed := false
+var _path_cache: Dictionary = {}
+var _compiled: RuntimeBalanceType
 var source_path := "res://config/balance/balance.json"
 
 
@@ -21,6 +30,8 @@ func section(name: String) -> Dictionary:
 
 
 func value(path: String, fallback = null):
+	if _sealed:
+		return _path_cache.get(path, fallback)
 	var cursor = data
 	for part in path.split("/"):
 		if cursor is Dictionary:
@@ -38,6 +49,8 @@ func value(path: String, fallback = null):
 
 
 func set_value(path: String, new_value) -> bool:
+	if _sealed:
+		return false
 	var parts := path.split("/")
 	if parts.is_empty():
 		return false
@@ -62,6 +75,37 @@ func set_value(path: String, new_value) -> bool:
 
 func validate() -> Array[String]:
 	return BalanceSchemaType.validate(data)
+
+
+func freeze() -> Array[String]:
+	if _sealed:
+		return []
+	var errors := validate()
+	if not errors.is_empty():
+		return errors
+	_freeze_value(_data, "")
+	_compiled = RuntimeBalanceType.new(_data)
+	_sealed = true
+	return []
+
+
+func runtime_config() -> RuntimeBalanceType:
+	if _sealed:
+		return _compiled
+	var copy := duplicate_profile()
+	return copy._compiled if copy.freeze().is_empty() else null
+
+
+func _freeze_value(value, path: String) -> void:
+	_path_cache[path] = value
+	if value is Dictionary:
+		for key in value:
+			_freeze_value(value[key], String(key) if path.is_empty() else path + "/" + String(key))
+		value.make_read_only()
+	elif value is Array:
+		for index in value.size():
+			_freeze_value(value[index], path + "/" + str(index))
+		value.make_read_only()
 
 
 func entropy_weight(entropy_value: float) -> float:

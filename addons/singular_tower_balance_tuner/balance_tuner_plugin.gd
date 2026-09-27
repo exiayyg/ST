@@ -39,10 +39,20 @@ func _show_panel_after_editor_settles() -> void:
 
 
 func _test_editor_entry() -> void:
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(5.0).timeout
+	while EditorInterface.get_resource_filesystem().is_scanning():
+		await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(1.0).timeout
 	var attached := dock != null and dock.is_inside_tree()
 	var visible := attached and dock.is_visible_in_tree()
 	print("Balance editor entry present: attached=%s visible=%s size=%s" % [attached, visible, dock.size if attached else Vector2.ZERO])
+	if "--capture-balance-editor" in OS.get_cmdline_user_args() and attached and visible:
+		await RenderingServer.frame_post_draw
+		var error := EditorInterface.get_base_control().get_viewport().get_texture().get_image().save_png("res://artifacts/v041-editor-tuning.png")
+		if error != OK:
+			get_tree().quit(error)
+			return
+		await get_tree().create_timer(3.0).timeout
 	get_tree().quit(0 if attached and visible else 17)
 
 

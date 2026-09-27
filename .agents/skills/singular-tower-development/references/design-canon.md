@@ -10,6 +10,8 @@ The design priority is internal, readable game physics rather than real-world ph
 
 - Exactly one center/unique tower exists at the start of a run.
 - Its position, facing, and firing direction are fixed and cannot be changed.
+- Every ordinary projectile created directly by the center tower starts at the same fixed muzzle point and follows the same deterministic initial path. There are no parallel firing lanes, lateral offsets, firing-angle randomness, or entropy drift before a device changes that path.
+- Once a tower projectile interacts with a device, it follows the ordinary device and entropy rules; tower origin does not grant permanent immunity from uncertainty. Projectiles reconstructed by converters or accumulators begin at their reconstructing device and do not have to align with the tower's initial path.
 - It is the only object that actively creates ordinary projectiles and the only source of initial momentum. Devices cannot create ordinary initial momentum from nothing.
 - The tower has HP. Destruction at HP `<= 0` causes immediate run failure, independently of wave efficiency.
 
@@ -32,6 +34,7 @@ The design priority is internal, readable game physics rather than real-world ph
 - Initial placement is allowed only in currently lit space.
 - After placement, devices remain freely movable and rotatable during combat, including after activation. Preserve this freedom as a core operation, not an editor-like concession.
 - Every device has HP whether inactive or active. Destruction stops all behavior and removes its lighting contribution immediately.
+- A player may deliberately dismantle a selected device. Dismantling removes a diode pair atomically, contributes no momentum or damage, and permanently discards activation progress plus any stored mass, particle momentum, or wave momentum without reconstructing a projectile.
 
 ## Map, fog, and strategic regions
 
@@ -119,6 +122,9 @@ Absorbs each entering projectile's full mass and scalar momentum into player-tim
 - Boss/high-pressure stages are construction-level tests, not merely high HP. Across the boss system, test both burst/storage builds and long-running stable/cyclic builds; interference resistance and spatial coverage may also be tested. Specific bosses and skills are not frozen.
 - At least level mode and endless mode exist.
 - Level mode teaches mainly through designed encounters and observable consequences, not large explanatory popups. Spotlighting devices across levels does not imply a permanent unlock tree.
+- Player-facing builds enter through a mode menu that exposes level mode and endless mode. Single-wave and construction regression scenes are development-only surfaces.
+- Authored campaign levels unlock sequentially from completed prerequisites. This progression gates levels only: every playable level continues to expose all device types through the radial menu.
+- The first local campaign record stores each level's completion state and best momentum utilization. Utilization records may exceed `100%`, consistent with the core metric.
 
 ### Endless-mode run structure
 

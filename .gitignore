@@ -7,6 +7,7 @@
 !/addons/singular_tower/bin/.gitkeep
 /artifacts/*
 !/artifacts/.gitkeep
+!/artifacts/.gdignore
 !/artifacts/performance-baseline.md
 /config/balance/*.tmp
 /config/balance/*.bak

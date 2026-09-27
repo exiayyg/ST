@@ -23,15 +23,15 @@ func _save_viewport(path: String) -> bool:
 func _capture() -> void:
 	var prototype := PROTOTYPE_SCENE.instantiate()
 	root.add_child(prototype)
-	prototype.set("_auto_fire", false)
+	prototype.runtime.set("auto_fire", false)
 	for _frame in 10:
 		await process_frame
 	if not _save_viewport(INITIAL_OUTPUT):
 		return
 
-	var catalog: DeviceCatalog = prototype.get("_catalog")
-	var construction: ConstructionController = prototype.get("_construction")
-	var simulation: SimulationController = prototype.get("_simulation")
+	var catalog: DeviceCatalog = prototype.runtime.catalog
+	var construction: ConstructionController = prototype.runtime.construction
+	var simulation: SimulationController = prototype.runtime.simulation
 	var profile: BalanceProfile = prototype.get("_profile")
 	var camera_controller: PrototypeCameraController = prototype.get("_camera_controller")
 	var tower_mass := float(profile.value("tower/projectile_mass", 0.05))
@@ -59,9 +59,9 @@ func _capture() -> void:
 			}])
 			simulation.native.step(0.25)
 	construction.sync(simulation.native.get_device_snapshot())
-	prototype.set("_lighting_dirty", true)
-	prototype.set("_press_screen_origin", Vector2(24.0, 92.0))
-	prototype.call("_open_radial_menu")
+	prototype.runtime.set("lighting_dirty", true)
+	prototype.runtime.input.set("_press_screen_origin", Vector2(24.0, 92.0))
+	prototype.runtime.input.call("_open_radial_menu")
 	for _frame in 30:
 		await process_frame
 	if not _save_viewport(CATALOG_OUTPUT):
@@ -73,7 +73,7 @@ func _capture() -> void:
 		if definition != null and definition.kind == &"wave_converter":
 			converter_position = record.position
 			break
-	prototype.call("_close_radial_menu")
+	prototype.runtime.input.call("_close_radial_menu")
 	simulation.native.emit_projectiles([{
 		"position": converter_position - Vector2(44.0, 0.0),
 		"velocity": Vector2(tower_speed, 0.0),

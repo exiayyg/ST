@@ -7,6 +7,10 @@ var radial_open := false
 var radial_center := Vector2.ZERO
 var radial_hover := -1
 var auto_fire := true
+var _energy: RuntimeBalance.Presentation
+var selected_context := ""
+var has_selection := false
+var _input_config: RuntimeBalance.ConstructionUx
 var event_messages: Array[String] = []
 var pending_diode := false
 var show_prototype_status := true
@@ -20,6 +24,9 @@ var color_warning := Color("ffcf5c")
 
 
 func configure(profile: BalanceProfile) -> void:
+	_energy = profile.runtime_config().presentation
+	_input_config = profile.runtime_config().construction_ux
+	theme = EnergyTheme.build(profile)
 	radial_radius = float(profile.value("construction_ux/radial_radius", radial_radius))
 	radial_dead_zone = float(profile.value("construction_ux/radial_dead_zone", radial_dead_zone))
 	color_background = Color(String(profile.value("visuals/hud_background_color", color_background.to_html(false))))
@@ -72,23 +79,23 @@ func _draw() -> void:
 			int(stats.get("wave_point_count", 0)),
 			float(stats.get("last_step_milliseconds", 0.0)),
 		]
-		draw_string(ThemeDB.fallback_font, Vector2(size.x - 525.0, 40.0), metrics,
+		draw_string(ThemeDB.fallback_font, Vector2(size.x - 525.0 - _input_config.action_button_width * 3.0 - _input_config.action_inset, 40.0), metrics,
 			HORIZONTAL_ALIGNMENT_LEFT, -1.0, 16, color_active if utilization > 100.0 else color_text)
 		draw_rect(Rect2(0.0, size.y - 42.0, size.x, 42.0), color_background)
-		var controls := "长按左键建造 · 拖拽移动 · Q/E 旋转 · R 释放蓄积 · WASD/中键移动 · 滚轮缩放 · 空格发射"
-		draw_string(ThemeDB.fallback_font, Vector2(22.0, size.y - 15.0), controls,
-			HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15, color_muted)
+		var controls := "长按左键建造 · 按住并拖动移动 · 右键预览旋转 · 点击蓄积器释放 · 中键移动 · 滚轮缩放"
+		if not has_selection:
+			draw_string(ThemeDB.fallback_font, Vector2(22.0, size.y - 15.0), controls,
+				HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15, color_muted)
 		var fire_text := "发射中" if auto_fire else "已暂停"
 		draw_string(ThemeDB.fallback_font, Vector2(size.x - 88.0, size.y - 15.0), fire_text,
 			HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15, color_active if auto_fire else color_warning)
 	var message_y := 98.0
-	for message in event_messages:
+	for message in (event_messages if show_prototype_status else []):
 		draw_string(ThemeDB.fallback_font, Vector2(22.0, message_y), message,
 			HORIZONTAL_ALIGNMENT_LEFT, -1.0, 15, Color(color_text, 0.78))
 		message_y += 22.0
-	if pending_diode:
-		draw_string(ThemeDB.fallback_font, Vector2(size.x * 0.5 - 120.0, 98.0),
-			"二极管：点击亮区设置出口", HORIZONTAL_ALIGNMENT_LEFT, -1.0, 18, color_active)
+	if not selected_context.is_empty() and not radial_open:
+		draw_multiline_string(ThemeDB.fallback_font, Vector2(_energy.ui_inset, size.y - _energy.ui_inset * 3.0), selected_context, HORIZONTAL_ALIGNMENT_LEFT, _energy.context_width, theme.default_font_size)
 	if radial_open:
 		_draw_radial_menu()
 
@@ -100,18 +107,22 @@ func _draw_radial_menu() -> void:
 	var sector_size := TAU / float(count)
 	for index in count:
 		var center_angle := -PI * 0.5 + float(index) * sector_size
-		var points := PackedVector2Array([radial_center])
+		var points := PackedVector2Array()
 		for step in 9:
 			var angle := center_angle - sector_size * 0.48 + sector_size * 0.96 * float(step) / 8.0
 			points.append(radial_center + Vector2.RIGHT.rotated(angle) * radial_radius)
+		for step in range(8, -1, -1):
+			var angle := center_angle - sector_size * 0.48 + sector_size * 0.96 * float(step) / 8.0
+			points.append(radial_center + Vector2.RIGHT.rotated(angle) * radial_dead_zone)
 		var definition := catalog.definitions[index]
 		var fill := Color(definition.color, 0.42 if index == radial_hover else 0.20)
 		draw_colored_polygon(points, fill)
 		var label_position := radial_center + Vector2.RIGHT.rotated(center_angle) * radial_radius * 0.6875
-		draw_string(ThemeDB.fallback_font, label_position - Vector2(19.0, -5.0),
+		EnergyGlyphs.draw(self, definition.kind, label_position - Vector2(0.0, _energy.icon_radius), _energy.icon_radius, 0.0, definition.color, _energy.line_width)
+		draw_string(ThemeDB.fallback_font, label_position - Vector2(19.0, -_energy.icon_radius),
 			definition.short_name, HORIZONTAL_ALIGNMENT_CENTER, 42.0, 14,
 			Color.WHITE if index == radial_hover else Color(color_text, 0.84))
-	draw_circle(radial_center, radial_dead_zone, Color("121925"))
 	draw_arc(radial_center, radial_dead_zone, 0.0, TAU, 32, Color("70809a"), 2.0, true)
-	draw_string(ThemeDB.fallback_font, radial_center + Vector2(-18.0, 6.0), "建造",
-		HORIZONTAL_ALIGNMENT_CENTER, 36.0, 13, color_muted)
+	if radial_hover < 0:
+		draw_string(ThemeDB.fallback_font, radial_center + Vector2(-18.0, 6.0), "建造",
+			HORIZONTAL_ALIGNMENT_CENTER, 36.0, 13, color_muted)

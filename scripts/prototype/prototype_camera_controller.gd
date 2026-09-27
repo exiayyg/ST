@@ -23,16 +23,7 @@ func _init(camera_node: Camera2D, world_rect: Rect2, owner_viewport: Viewport, p
 		zoom_step_base = float(profile.value("map_camera/zoom_step_base", zoom_step_base))
 
 
-func update(delta: float) -> void:
-	var direction := Vector2.ZERO
-	if Input.is_key_pressed(KEY_A):
-		direction.x -= 1.0
-	if Input.is_key_pressed(KEY_D):
-		direction.x += 1.0
-	if Input.is_key_pressed(KEY_W):
-		direction.y -= 1.0
-	if Input.is_key_pressed(KEY_S):
-		direction.y += 1.0
+func update(delta: float, direction := Vector2.ZERO) -> void:
 	if direction != Vector2.ZERO:
 		camera.position += direction.normalized() * pan_speed * delta / camera.zoom.x
 	clamp_to_map()

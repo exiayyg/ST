@@ -1,12 +1,16 @@
 class_name ConstructionController
 extends RefCounted
 
+signal gameplay_event(event: Dictionary)
+
 var simulation: SimulationController
 var devices: Dictionary = {}
 var selected_device_id := 0
 var selected_anchor := 0
 var destruction_effects: Array[Dictionary] = []
+var teleport_effects: Array[Dictionary] = []
 var destroy_effect_seconds := 0.35
+var diode_teleport_pulse_seconds := 0.32
 var device_hit_flash_seconds := 0.16
 var target_revision := 0
 
@@ -15,6 +19,9 @@ func _init(simulation_controller: SimulationController, profile: BalanceProfile 
 	simulation = simulation_controller
 	if profile != null:
 		destroy_effect_seconds = float(profile.value("visuals/destroy_effect_seconds", destroy_effect_seconds))
+		diode_teleport_pulse_seconds = float(profile.value(
+			"visuals/diode_teleport_pulse_seconds", diode_teleport_pulse_seconds
+		))
 		device_hit_flash_seconds = float(profile.value("visuals/device_hit_flash_seconds", device_hit_flash_seconds))
 
 
@@ -50,6 +57,13 @@ func place(
 	target_revision += 1
 	selected_device_id = device_id
 	selected_anchor = 0
+	gameplay_event.emit({
+		"type": &"device_placed",
+		"device_id": device_id,
+		"device_kind": definition.kind,
+		"position": position,
+		"secondary_position": secondary_position,
+	})
 	return device_id
 
 
@@ -121,22 +135,24 @@ func rotate_selected(delta_angle: float) -> bool:
 	if not devices.has(selected_device_id):
 		return false
 	var record: Dictionary = devices[selected_device_id]
-	var definition := record.get("definition") as DeviceDefinition
-	var angle_key := "angle_radians"
-	var position_key := "position"
-	if definition != null and definition.kind == &"diode" and selected_anchor == 1:
-		angle_key = "secondary_angle_radians"
-		position_key = "secondary_position"
-	var angle := wrapf(float(record.get(angle_key, 0.0)) + delta_angle, -PI, PI)
-	var position: Vector2 = record.get(position_key, Vector2.ZERO)
-	var ok := simulation.native.set_device_anchor_transform(
-		selected_device_id, selected_anchor, position, angle
-	) if definition != null and definition.kind == &"diode" else simulation.native.set_device_transform(
-		selected_device_id, position, angle
-	)
+	var key := "secondary_angle_radians" if selected_anchor == 1 else "angle_radians"
+	return set_anchor_rotation(selected_device_id, selected_anchor, float(record[key]) + delta_angle)
+
+func set_anchor_rotation(device_id: int, anchor_index: int, angle: float) -> bool:
+	if not devices.has(device_id) or not is_finite(angle):
+		return false
+	var record: Dictionary = devices[device_id]
+	var definition := record.definition as DeviceDefinition
+	if anchor_index < 0 or anchor_index > (1 if definition.kind == &"diode" else 0):
+		return false
+	var angle_key := "secondary_angle_radians" if anchor_index == 1 else "angle_radians"
+	var position_key := "secondary_position" if anchor_index == 1 else "position"
+	angle = wrapf(angle, -PI, PI)
+	var position: Vector2 = record[position_key]
+	var ok := simulation.native.set_device_anchor_transform(device_id, anchor_index, position, angle) \
+		if definition.kind == &"diode" else simulation.native.set_device_transform(device_id, position, angle)
 	if ok:
 		record[angle_key] = angle
-		devices[selected_device_id] = record
 	return ok
 
 
@@ -151,21 +167,50 @@ func damage_device(device_id: int, amount: float) -> bool:
 	record["hp"] = maxf(0.0, float(record.get("hp", 0.0)) - amount)
 	record["hit_flash_remaining"] = device_hit_flash_seconds
 	if float(record.hp) <= 0.0:
-		simulation.native.remove_device(device_id)
-		_append_destruction_effect(record.get("position", Vector2.ZERO))
-		var definition := record.get("definition") as DeviceDefinition
-		if definition != null and definition.kind == &"diode":
-			var secondary_position: Vector2 = record.get("secondary_position", Vector2.ZERO)
-			if secondary_position.distance_squared_to(record.get("position", Vector2.ZERO)) > 0.000001:
-				_append_destruction_effect(secondary_position)
-		devices.erase(device_id)
-		target_revision += 1
-		if selected_device_id == device_id:
-			selected_device_id = 0
-			selected_anchor = 0
-		return true
+		devices[device_id] = record
+		return not _remove_device(device_id, &"device_destroyed").is_empty()
 	devices[device_id] = record
 	return false
+
+
+func dismantle_selected() -> Dictionary:
+	if selected_device_id <= 0:
+		return {}
+	return _remove_device(selected_device_id, &"device_dismantled")
+
+
+func _remove_device(device_id: int, event_type: StringName) -> Dictionary:
+	if not devices.has(device_id):
+		return {}
+	var record: Dictionary = devices[device_id]
+	if not simulation.native.remove_device(device_id):
+		return {}
+	var position: Vector2 = record.get("position", Vector2.ZERO)
+	var secondary_position: Vector2 = record.get("secondary_position", position)
+	_append_destruction_effect(position, event_type)
+	var definition := record.get("definition") as DeviceDefinition
+	if definition != null and definition.kind == &"diode" \
+			and secondary_position.distance_squared_to(position) > 0.000001:
+		_append_destruction_effect(secondary_position, event_type)
+	devices.erase(device_id)
+	target_revision += 1
+	if selected_device_id == device_id:
+		selected_device_id = 0
+		selected_anchor = 0
+	var event := {
+		"type": event_type,
+		"device_id": device_id,
+		"device_kind": definition.kind if definition != null else &"",
+		"position": position,
+		"secondary_position": secondary_position,
+		"was_active": bool(record.get("active", false)),
+		"discarded_activation_progress": float(record.get("activation_progress", 0.0)),
+		"discarded_mass": float(record.get("stored_mass", 0.0)),
+		"discarded_momentum": float(record.get("stored_momentum", 0.0)),
+		"discarded_wave_momentum": float(record.get("stored_wave_momentum", 0.0)),
+	}
+	gameplay_event.emit(event)
+	return event
 
 
 func advance_effects(delta: float) -> void:
@@ -178,20 +223,71 @@ func advance_effects(delta: float) -> void:
 	destruction_effects = destruction_effects.filter(
 		func(effect: Dictionary): return float(effect.get("remaining", 0.0)) > 0.0
 	)
+	for effect in teleport_effects:
+		effect.remaining = float(effect.get("remaining", 0.0)) - delta
+	teleport_effects = teleport_effects.filter(
+		func(effect: Dictionary): return float(effect.get("remaining", 0.0)) > 0.0
+	)
 
 
-func _append_destruction_effect(position: Vector2) -> void:
+func record_diode_teleport(device_id: int) -> bool:
+	if not devices.has(device_id):
+		return false
+	var record: Dictionary = devices[device_id]
+	var definition := record.get("definition") as DeviceDefinition
+	if definition == null or definition.kind != &"diode":
+		return false
+	for effect in teleport_effects:
+		if int(effect.get("device_id", 0)) != device_id:
+			continue
+		effect["entry"] = record.get("position", Vector2.ZERO)
+		effect["exit"] = record.get("secondary_position", Vector2.ZERO)
+		effect["remaining"] = diode_teleport_pulse_seconds
+		effect["total"] = diode_teleport_pulse_seconds
+		return true
+	teleport_effects.append({
+		"device_id": device_id,
+		"entry": record.get("position", Vector2.ZERO),
+		"exit": record.get("secondary_position", Vector2.ZERO),
+		"remaining": diode_teleport_pulse_seconds,
+		"total": diode_teleport_pulse_seconds,
+	})
+	return true
+
+
+func _append_destruction_effect(position: Vector2, event_type: StringName) -> void:
 	destruction_effects.append({
 		"position": position,
+		"kind": event_type,
 		"remaining": destroy_effect_seconds,
 		"total": destroy_effect_seconds,
 	})
 
 
-func get_device_position(device_id: int) -> Vector2:
+func get_device_position(device_id: int, anchor_index := 0) -> Vector2:
 	if not devices.has(device_id):
 		return Vector2.INF
-	return (devices[device_id] as Dictionary).get("position", Vector2.INF)
+	var record: Dictionary = devices[device_id]
+	if anchor_index == 0:
+		return record.position
+	var definition := record.definition as DeviceDefinition
+	if anchor_index == 1 and definition.kind == &"diode":
+		return record.secondary_position
+	return Vector2.INF
+
+
+func target_anchors() -> Array[Dictionary]:
+	# Rebuilt by the AI only when target_revision changes.
+	var anchors: Array[Dictionary] = []
+	var ids := devices.keys()
+	ids.sort()
+	for device_id in ids:
+		var record: Dictionary = devices[device_id]
+		var definition := record.definition as DeviceDefinition
+		anchors.append({"id": device_id, "anchor_index": 0, "position": record.position, "radius": definition.activation_radius})
+		if definition.kind == &"diode":
+			anchors.append({"id": device_id, "anchor_index": 1, "position": record.secondary_position, "radius": definition.activation_radius})
+	return anchors
 
 
 func release_selected() -> bool:

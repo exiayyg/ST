@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tools/test_balance_config.gd" id="1_wxf6b"]
+
+[node name="BalanceConfigTest" type="Node" unique_id=1215319404]
+script = ExtResource("1_wxf6b")

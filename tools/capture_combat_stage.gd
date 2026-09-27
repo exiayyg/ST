@@ -27,16 +27,16 @@ func _save(path: String) -> bool:
 func _capture() -> void:
 	var combat := COMBAT_SCENE.instantiate()
 	add_child(combat)
-	combat.set("_auto_fire", false)
+	combat.runtime.set("auto_fire", false)
 	for _frame in 6:
 		await get_tree().process_frame
 
-	var construction: ConstructionController = combat.get("_construction")
-	var catalog: DeviceCatalog = combat.get("_catalog")
-	var simulation: SimulationController = combat.get("_simulation")
+	var construction: ConstructionController = combat.runtime.construction
+	var catalog: DeviceCatalog = combat.runtime.catalog
+	var simulation: SimulationController = combat.runtime.simulation
 	var world_view: NetworkWorldView = combat.get("_world_view")
-	var manager: EnemyManager = combat.get("_enemy_manager")
-	var session := combat.get("_session") as SingleWaveSession
+	var manager: EnemyManager = combat.runtime.enemies
+	var session := combat.runtime.session as SingleWaveSession
 	var director: WaveDirector = session.wave_director if session != null else null
 	var combat_hud: CombatHud = combat.get("_combat_hud")
 	if director == null:
@@ -66,19 +66,19 @@ func _capture() -> void:
 	ranged.position = Vector2(300.0, -130.0)
 	ranged.entropy = 75.0
 	manager.call("_ranged_attack", ranged, Vector2.ZERO)
-	combat.set("_lighting_dirty", true)
-	combat.call("_rebuild_fog")
+	combat.runtime.set("lighting_dirty", true)
+	combat.runtime.call("rebuild_fog")
 	combat.call("_refresh_views")
-	world_view.set_combat_state(manager.view_records(), manager.tracers, float(combat.get("_tower").hp), float(combat.get("_tower").max_hp))
-	combat_hud.set_state(director, simulation.native.get_stats(), combat.get("_tower"))
+	world_view.set_combat_state(manager.view_records(), manager.tracers, float(combat.runtime.tower.hp), float(combat.runtime.tower.max_hp))
+	combat_hud.set_state(director, simulation.native.get_stats(), combat.runtime.tower)
 	for _frame in 5:
 		await get_tree().process_frame
 	if not _save(COMBAT_OUTPUT):
 		return
 
 	construction.damage_device(bounce_id, 1000.0)
-	combat.set("_lighting_dirty", true)
-	combat.call("_rebuild_fog")
+	combat.runtime.set("lighting_dirty", true)
+	combat.runtime.call("rebuild_fog")
 	combat.call("_refresh_views")
 	await get_tree().process_frame
 	if not _save(DESTROY_OUTPUT):
@@ -117,7 +117,7 @@ func _capture() -> void:
 		"enemy_proxy_count": 0}
 	director.evaluate_after_simulation(success_stats)
 	director.update_before_simulation(0.016)
-	combat_hud.set_state(director, director.stats_for_display(success_stats), combat.get("_tower"))
+	combat_hud.set_state(director, director.stats_for_display(success_stats), combat.runtime.tower)
 	await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	var settlement_rect: Rect2 = combat_hud.call("_settlement_panel_rect", get_viewport().get_visible_rect().size)
@@ -127,7 +127,7 @@ func _capture() -> void:
 		return
 
 	combat.set_process(false)
-	var tower: TowerController = combat.get("_tower")
+	var tower: TowerController = combat.runtime.tower
 	var failed_director := WaveDirector.new(combat.get("_profile"), manager, simulation, tower)
 	failed_director.start(&"dev_wave_01")
 	tower.hp = 0.0

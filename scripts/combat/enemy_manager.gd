@@ -1,9 +1,12 @@
 class_name EnemyManager
 extends RefCounted
 
+signal presentation_event(event: Dictionary)
+
 const EnemyDefinitionType := preload("res://scripts/combat/enemy_definition.gd")
 const EnemyRuntimeType := preload("res://scripts/combat/enemy_runtime.gd")
 
+var _hit_flash_seconds: float
 var profile: BalanceProfile
 var simulation: SimulationController
 var construction: ConstructionController
@@ -11,9 +14,11 @@ var tower: TowerController
 var definitions: Dictionary = {}
 var enemies: Array[EnemyRuntime] = []
 var tracers: Array[Dictionary] = []
+var _depleted_hit_flashes: Array[Dictionary] = []
 var next_enemy_id := 1
 var random := RandomNumberGenerator.new()
 var _device_target_cells: Dictionary = {}
+var _device_target_anchors: Array[Dictionary] = []
 var _device_target_index_revision := -1
 var _device_target_min_cell := Vector2i.ZERO
 var _device_target_max_cell := Vector2i.ZERO
@@ -37,6 +42,7 @@ func _init(
 		tower_controller: TowerController
 ) -> void:
 	profile = balance_profile
+	_hit_flash_seconds = profile.runtime_config().playtest.enemy_hit_flash_seconds
 	simulation = simulation_controller
 	construction = construction_controller
 	tower = tower_controller
@@ -56,15 +62,19 @@ func _init(
 		definitions[StringName(key)] = EnemyDefinitionType.from_config(StringName(key), profile.value("enemies/%s" % key, {}))
 
 
-func spawn(enemy_kind: StringName, direction: StringName, modifiers: Dictionary = {}) -> int:
+func spawn(enemy_kind: StringName, direction: StringName, modifiers: Dictionary = {}, spawn_region: SpawnRegion = null) -> int:
 	var definition := definitions.get(enemy_kind) as EnemyDefinition
 	if definition == null:
+		return 0
+	var region := spawn_region if spawn_region != null else SpawnRegion.new()
+	var spawn_position := _spawn_position(direction, region)
+	if not spawn_position.is_finite():
 		return 0
 	var stagger := _target_refresh_seconds * fposmod(
 		float(next_enemy_id) * _spawn_distribution_step, 1.0
 	)
 	var enemy := EnemyRuntimeType.new(
-		next_enemy_id, definition, _spawn_position(direction), modifiers, stagger
+		next_enemy_id, definition, spawn_position, modifiers, stagger
 	) as EnemyRuntime
 	next_enemy_id += 1
 	enemies.append(enemy)
@@ -74,6 +84,9 @@ func spawn(enemy_kind: StringName, direction: StringName, modifiers: Dictionary 
 
 func update(delta: float, combat_active: bool) -> bool:
 	var lighting_changed := false
+	for flash in _depleted_hit_flashes:
+		flash["hit_flash_remaining"] = maxf(0.0, float(flash.hit_flash_remaining) - delta)
+	_depleted_hit_flashes = _depleted_hit_flashes.filter(func(flash: Dictionary): return float(flash.hit_flash_remaining) > 0.0)
 	if _needs_enemy_prune:
 		enemies = enemies.filter(func(enemy: EnemyRuntime): return enemy.alive and enemy.hp > 0.0)
 		_needs_enemy_prune = false
@@ -81,6 +94,8 @@ func update(delta: float, combat_active: bool) -> bool:
 		for tracer in tracers:
 			tracer["remaining"] = float(tracer.get("remaining", 0.0)) - delta
 		tracers = tracers.filter(func(tracer: Dictionary): return float(tracer.get("remaining", 0.0)) > 0.0)
+	for enemy in enemies:
+		enemy.hit_flash_remaining = maxf(0.0, enemy.hit_flash_remaining - delta)
 	if not combat_active:
 		return false
 	var tower_destroyed := tower.is_destroyed()
@@ -93,12 +108,12 @@ func update(delta: float, combat_active: bool) -> bool:
 		enemy.target_refresh_remaining -= delta
 		var target_invalid := tower_destroyed if enemy.target_kind == &"tower" else (
 			enemy.target_kind != &"device" or not construction.devices.has(enemy.target_id)
-			or not construction.get_device_position(enemy.target_id).is_finite()
+			or not construction.get_device_position(enemy.target_id, enemy.target_anchor).is_finite()
 		)
 		if enemy.target_refresh_remaining <= 0.0 or target_invalid:
 			_select_target(enemy)
 			enemy.target_refresh_remaining = _target_refresh_seconds
-		var target_position := construction.get_device_position(enemy.target_id) \
+		var target_position := construction.get_device_position(enemy.target_id, enemy.target_anchor) \
 			if enemy.target_kind == &"device" else tower_position
 		if not target_position.is_finite():
 			enemy.target_kind = &"tower"
@@ -176,11 +191,17 @@ func apply_native_event(event: Dictionary) -> void:
 	var enemy := find_enemy(int(event.get("subject_id", 0)))
 	if enemy == null or not enemy.alive:
 		return
+	if float(event.get("damage", 0.0)) > 0.0:
+		enemy.hit_flash_remaining = _hit_flash_seconds
 	enemy.hp = maxf(0.0, enemy.hp - float(event.get("damage", 0.0)))
 	enemy.entropy += maxf(0.0, float(event.get("entropy_transferred", 0.0)))
 	if enemy.hp <= 0.0:
 		enemy.alive = false
 		_needs_enemy_prune = true
+		if enemy.hit_flash_remaining > 0.0:
+			var flash := enemy.view_record()
+			flash["hit_flash_only"] = true
+			_depleted_hit_flashes.append(flash)
 
 
 func find_enemy(enemy_id: int) -> EnemyRuntime:
@@ -195,6 +216,8 @@ func view_records() -> Array[Dictionary]:
 	for enemy in enemies:
 		if enemy.alive:
 			result.append(enemy.view_record())
+	for flash in _depleted_hit_flashes:
+		result.append(flash.duplicate())
 	return result
 
 
@@ -209,9 +232,12 @@ func _select_target(enemy: EnemyRuntime) -> void:
 	_ensure_device_target_index()
 	var forward := (tower.position - enemy.position).normalized()
 	var best_id := 0
+	var best_anchor := 0
 	var best_score := INF
 	var uncertainty := 0.0 if enemy.entropy <= _entropy_start else profile.entropy_weight(enemy.entropy)
-	var score_deviation := _max_target_score_deviation_ratio * uncertainty
+	# Melee interceptors express entropy through target choice. Ranged suppressors
+	# keep target scoring deterministic and express it only through their aim ray.
+	var score_deviation := 0.0 if enemy.definition.ranged else _max_target_score_deviation_ratio * uncertainty
 	var radius := enemy.definition.sense_radius
 	var radius_squared := radius * radius
 	if _device_target_index_empty \
@@ -247,12 +273,16 @@ func _select_target(enemy: EnemyRuntime) -> void:
 					var factor := 1.0 + random.randf_range(-score_deviation, score_deviation)
 					score *= factor * factor
 				var candidate_id := int(value.get("id", 0))
-				if score < best_score or (is_equal_approx(score, best_score) and candidate_id < best_id):
+				var anchor_index := int(value.anchor_index)
+				var tied := is_equal_approx(score, best_score)
+				if (score < best_score and not tied) or (tied and (candidate_id < best_id or (candidate_id == best_id and anchor_index < best_anchor))):
 					best_score = score
 					best_id = candidate_id
+					best_anchor = anchor_index
 	if best_id > 0:
 		enemy.target_kind = &"device"
 		enemy.target_id = best_id
+		enemy.target_anchor = best_anchor
 	else:
 		enemy.target_kind = &"tower"
 		enemy.target_id = 0
@@ -261,10 +291,13 @@ func _select_target(enemy: EnemyRuntime) -> void:
 func _attack(enemy: EnemyRuntime, target_position: Vector2) -> bool:
 	if enemy.definition.ranged:
 		return _ranged_attack(enemy, target_position)
+	var lighting_changed := false
 	if enemy.target_kind == &"device":
-		return construction.damage_device(enemy.target_id, enemy.attack_damage)
-	tower.apply_damage(enemy.attack_damage)
-	return false
+		lighting_changed = construction.damage_device(enemy.target_id, enemy.attack_damage)
+	else:
+		tower.apply_damage(enemy.attack_damage)
+	presentation_event.emit({"type":"enemy_attack", "position":enemy.position, "subject_id":enemy.id})
+	return lighting_changed
 
 
 func _ranged_attack(enemy: EnemyRuntime, target_position: Vector2) -> bool:
@@ -281,9 +314,11 @@ func _ranged_attack(enemy: EnemyRuntime, target_position: Vector2) -> bool:
 	if tower_fraction < best_fraction:
 		best_fraction = tower_fraction
 		best_kind = &"tower"
-	for value: Dictionary in construction.devices.values():
-		var definition := value.get("definition") as DeviceDefinition
-		var radius := definition.activation_radius if definition != null else 28.0
+	_ensure_device_target_index()
+	# Anchors are sorted by stable device ID then endpoint; strict comparison
+	# retains the existing tower-first tie and applies one shared-HP hit only.
+	for value: Dictionary in _device_target_anchors:
+		var radius := float(value.radius)
 		var fraction := _segment_circle_fraction(enemy.position, ray_end, value.get("position", Vector2.INF), radius)
 		if fraction < best_fraction:
 			best_fraction = fraction
@@ -297,6 +332,7 @@ func _ranged_attack(enemy: EnemyRuntime, target_position: Vector2) -> bool:
 			tower.apply_damage(enemy.attack_damage)
 		else:
 			lighting_changed = construction.damage_device(best_id, enemy.attack_damage)
+	presentation_event.emit({"type":"enemy_attack", "position":enemy.position, "subject_id":enemy.id})
 	tracers.append({
 		"from": enemy.position,
 		"to": hit_position,
@@ -306,27 +342,24 @@ func _ranged_attack(enemy: EnemyRuntime, target_position: Vector2) -> bool:
 	return lighting_changed
 
 
-func _spawn_position(direction: StringName) -> Vector2:
+func accepts_spawn_region(direction: StringName, region: SpawnRegion) -> bool:
+	return region != null and region.fits(profile.map_rect(), float(profile.value("enemies/settings/spawn_edge_inset")), direction)
+
+
+func _spawn_position(direction: StringName, region: SpawnRegion) -> Vector2:
 	var rect := profile.map_rect()
 	var inset := float(profile.value("enemies/settings/spawn_edge_inset", 32.0))
 	var ratio := fposmod(float(next_enemy_id) * _spawn_distribution_step, 1.0)
-	match direction:
-		&"west":
-			return Vector2(rect.position.x + inset, lerpf(rect.position.y + inset, rect.end.y - inset, ratio))
-		&"north":
-			return Vector2(lerpf(rect.position.x + inset, rect.end.x - inset, ratio), rect.position.y + inset)
-		&"south":
-			return Vector2(lerpf(rect.position.x + inset, rect.end.x - inset, ratio), rect.end.y - inset)
-		_:
-			return Vector2(rect.end.x - inset, lerpf(rect.position.y + inset, rect.end.y - inset, ratio))
+	return region.position(rect, inset, direction, ratio)
 
 
 func _ensure_device_target_index() -> void:
 	if _device_target_index_revision == construction.target_revision:
 		return
 	_device_target_cells.clear()
+	_device_target_anchors = construction.target_anchors()
 	_device_target_index_empty = true
-	for value: Dictionary in construction.devices.values():
+	for value: Dictionary in _device_target_anchors:
 		var position: Vector2 = value.get("position", Vector2.INF)
 		if not position.is_finite():
 			continue
